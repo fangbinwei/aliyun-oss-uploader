@@ -28,14 +28,19 @@ export async function saveClipboardImageToFile(
   const platform = process.platform
   let saveResult
 
-  if (platform === 'win32') {
-    saveResult = await saveWin32ClipboardImageToFile(targetFilePath)
-  } else if (platform === 'darwin') {
-    saveResult = await saveMacClipboardImageToFile(targetFilePath)
-  } else {
-    saveResult = await saveLinuxClipboardImageToFile(targetFilePath)
+  try {
+    if (platform === 'win32') {
+      saveResult = await saveWin32ClipboardImageToFile(targetFilePath)
+    } else if (platform === 'darwin') {
+      saveResult = await saveMacClipboardImageToFile(targetFilePath)
+    } else {
+      saveResult = await saveLinuxClipboardImageToFile(targetFilePath)
+    }
+    return saveResult
+  } catch (err) {
+    // encoding maybe wrong(powershell may use gbk encoding in China, etc)
+    Logger.showErrorMessage(err.message)
   }
-  return saveResult
 }
 
 function getClipboardConfigPath(fileName: string): string {
@@ -50,26 +55,29 @@ async function saveWin32ClipboardImageToFile(
   let command = 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe'
   const powershellExisted = fs.existsSync(command)
   command = powershellExisted ? command : 'powershell'
+  try {
+    const { stdout } = await execa(command, [
+      '-noprofile',
+      '-noninteractive',
+      '-nologo',
+      '-sta',
+      '-executionpolicy',
+      'unrestricted',
+      '-windowstyle',
+      'hidden',
+      '-file',
+      scriptPath,
+      targetFilePath
+    ])
 
-  const { stderr, stdout } = await execa(command, [
-    '-noprofile',
-    '-noninteractive',
-    '-nologo',
-    '-sta',
-    '-executionpolicy',
-    'unrestricted',
-    '-windowstyle',
-    'hidden',
-    '-file',
-    scriptPath,
-    targetFilePath
-  ])
-
-  if (stderr) {
-    Logger.showErrorMessage(stderr)
-    return
+    return { noImage: stdout === 'no image', data: stdout }
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      Logger.showErrorMessage('Failed to execute powershell')
+      return
+    }
+    throw err
   }
-  return { noImage: stdout === 'no image', data: stdout }
 }
 
 async function saveMacClipboardImageToFile(
@@ -77,19 +85,15 @@ async function saveMacClipboardImageToFile(
 ): Promise<ClipboardImage | undefined> {
   const scriptPath = getClipboardConfigPath('mac.applescript')
 
-  try {
-    const { stderr, stdout } = await execa('osascript', [
-      scriptPath,
-      targetFilePath
-    ])
-    if (stderr) {
-      Logger.showErrorMessage(stderr)
-      return
-    }
-    return { noImage: stdout === 'no image', data: stdout }
-  } catch (err) {
-    Logger.showErrorMessage(err.message)
+  const { stderr, stdout } = await execa('osascript', [
+    scriptPath,
+    targetFilePath
+  ])
+  if (stderr) {
+    Logger.showErrorMessage(stderr)
+    return
   }
+  return { noImage: stdout === 'no image', data: stdout }
 }
 
 async function saveLinuxClipboardImageToFile(

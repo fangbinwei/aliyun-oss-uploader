@@ -7,12 +7,12 @@ $img = [Windows.Clipboard]::GetImage()
 
 if ($img -eq $null) {
     "no image"
-    Exit 0
+    Exit
 }
 
 if (-not $imagePath) {
     "no image"
-    Exit 0
+    Exit
 }
 
 $fcb = new-object Windows.Media.Imaging.FormatConvertedBitmap($img, [Windows.Media.PixelFormats]::Rgb24, $null, 0)
