@@ -12,7 +12,8 @@
   ],
   "activationEvents": [
     "onCommand:elan.uploadFromClipboard",
-    "onCommand:elan.uploadFromExplorer"
+    "onCommand:elan.uploadFromExplorer",
+    "onCommand:elan.uploadFromExplorerContext"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -24,8 +25,27 @@
       {
         "command": "elan.uploadFromExplorer",
         "title": "Elan: upload image from explorer"
+      },
+      {
+        "command": "elan.uploadFromExplorerContext",
+        "title": "Elan: upload image"
       }
     ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "elan.uploadFromExplorerContext",
+          "when": "false"
+        }
+      ],
+      "explorer/context": [
+        {
+          "when": "resourceExtname =~/^\\.(png|jpg|jpeg|webp|gif|bmp|tiff|ico|svg)$/",
+          "command": "elan.uploadFromExplorerContext",
+          "group": "5_cutcopypaste"
+        }
+      ]
+    },
     "configuration": {
       "title": "Elan",
       "properties": {

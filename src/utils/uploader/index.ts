@@ -73,7 +73,8 @@ export async function uploadUris(uris: vscode.Uri[]): Promise<void> {
     const uploadName = templateStore.transform('uploadName')
     const bucketFolder = templateStore.transform('bucketFolder')
 
-    const u = uploader.put(`${bucketFolder}/${uploadName}`, uri.fsPath)
+    const putName = `${bucketFolder ? bucketFolder + '/' : ''}${uploadName}`
+    const u = uploader.put(putName, uri.fsPath)
     u.then((putObjectResult) => {
       progress.report({
         message: `(${++finished} / ${uris.length})`,
@@ -128,10 +129,11 @@ export async function uploadUris(uris: vscode.Uri[]): Promise<void> {
 
 function afterUpload(clipboard: string[]): void {
   if (!clipboard.length) return
-  const GFM = clipboard.join('\n\n')
+  const GFM = clipboard.join('\n\n') + '\n\n'
   vscode.env.clipboard.writeText(GFM)
   const activeTextEditor = vscode.window.activeTextEditor
-  if (!activeTextEditor) return
+  if (!activeTextEditor || activeTextEditor.document.languageId !== 'markdown')
+    return
 
   activeTextEditor.edit((textEditorEdit) => {
     textEditorEdit.insert(activeTextEditor.selection.active, GFM)

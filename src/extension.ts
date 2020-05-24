@@ -1,6 +1,7 @@
 import vscode from 'vscode'
 import uploadFromClipboard from './commands/uploadFromClipboard'
 import uploadFromExplorer from './commands/uploadFromExplorer'
+import uploadFromExplorerContext from './commands/uploadFromExplorerContext'
 import Logger from './utils/log'
 
 // this method is called when your extension is activated
@@ -17,6 +18,10 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand(
       'elan.uploadFromExplorer',
       uploadFromExplorer
+    ),
+    vscode.commands.registerCommand(
+      'elan.uploadFromExplorerContext',
+      uploadFromExplorerContext
     )
   ]
   context.subscriptions.push(...disposable)
