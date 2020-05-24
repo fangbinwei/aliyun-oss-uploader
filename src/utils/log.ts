@@ -1,11 +1,14 @@
 import vscode from 'vscode'
+import { format } from 'date-fns'
 
 export default class Logger {
   static channel: vscode.OutputChannel
 
   static log(message: string): void {
     if (this.channel) {
-      this.channel.appendLine(`[${new Date().toString()}] ${message}`)
+      this.channel.appendLine(
+        `[${format(new Date(), 'MM-dd HH:mm:ss')}]: ${message}`
+      )
     }
   }
 

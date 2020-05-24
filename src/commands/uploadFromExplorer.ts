@@ -1,5 +1,5 @@
 import vscode from 'vscode'
-import { uploadFsPaths } from '../utils/uploader/index'
+import { uploadUris } from '../utils/uploader/index'
 
 export default async function uploadImageFromExplorer(): Promise<void> {
   const result = await vscode.window.showOpenDialog({
@@ -10,5 +10,5 @@ export default async function uploadImageFromExplorer(): Promise<void> {
   })
   if (!result) return
 
-  await uploadFsPaths(result)
+  await uploadUris(result)
 }

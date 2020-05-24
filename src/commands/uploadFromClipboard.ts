@@ -3,8 +3,9 @@ import path from 'path'
 import fs from 'fs'
 import execa from 'execa'
 import os from 'os'
-import { uploadFsPaths } from '../utils/uploader/index'
+import { uploadUris } from '../utils/uploader/index'
 import vscode from 'vscode'
+import { format } from 'date-fns'
 
 interface ClipboardImage {
   noImage: boolean
@@ -12,14 +13,17 @@ interface ClipboardImage {
 }
 
 export default async function uploadImage(): Promise<void> {
-  const targetPath = path.resolve(os.tmpdir(), Date.now().toString())
+  const targetPath = path.resolve(
+    os.tmpdir(),
+    format(new Date(), 'yyyy-MM-dd-HH-mm-ss') + '.png'
+  )
   const clipboardImage = await saveClipboardImageToFile(targetPath)
   if (!clipboardImage) return
   if (clipboardImage.noImage) {
-    Logger.showErrorMessage('no image')
+    Logger.showErrorMessage('The clipboard does not contain image data.')
     return
   }
-  await uploadFsPaths([vscode.Uri.file(targetPath)])
+  await uploadUris([vscode.Uri.file(targetPath)])
 }
 
 export async function saveClipboardImageToFile(

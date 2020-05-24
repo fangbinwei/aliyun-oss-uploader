@@ -11,7 +11,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:elan.uploadFromClipboard"
+    "onCommand:elan.uploadFromClipboard",
+    "onCommand:elan.uploadFromExplorer"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -19,35 +20,44 @@
       {
         "command": "elan.uploadFromClipboard",
         "title": "Elan: upload image from clipboard"
+      },
+      {
+        "command": "elan.uploadFromExplorer",
+        "title": "Elan: upload image from explorer"
       }
     ],
     "configuration": {
-      "type": "object",
       "title": "Elan",
       "properties": {
-        "elan.accessKeyId": {
+        "elan.aliyun.accessKeyId": {
           "type": "string",
           "default": ""
         },
-        "elan.accessKeySecret": {
+        "elan.aliyun.accessKeySecret": {
           "type": "string",
           "default": ""
         },
-        "elan.bucket": {
+        "elan.aliyun.bucket": {
           "type": "string",
           "default": ""
         },
-        "elan.area": {
+        "elan.aliyun.region": {
           "type": "string",
           "default": ""
         },
-        "elan.subPath": {
+        "elan.aliyun.subPath": {
           "type": "string",
           "default": ""
         },
-        "elan.customUrl": {
+        "elan.outputFormat": {
           "type": "string",
-          "default": ""
+          "markdownDescription": "- `${fileName}`: Filename of uploaded file.\n- `${uploadName}`: Custom defined config. \n- `${url}`: After a file is uploaded successfully, the OSS sends a callback request to this URL.",
+          "default": "![${uploadName}](${url})"
+        },
+        "elan.uploadName": {
+          "type": "string",
+          "markdownDescription": "- `${fileName}`: Filename of uploaded file.\n-`${extName}`: Filename extension of uploaded file.",
+          "default": "${fileName}${extName}"
         }
       }
     }
@@ -64,7 +74,6 @@
   "devDependencies": {
     "@types/glob": "^7.1.1",
     "@types/mocha": "^7.0.2",
-    "@types/node": "^13.11.0",
     "@types/vscode": "^1.45.0",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
@@ -80,6 +89,9 @@
     "vscode-test": "^1.3.0"
   },
   "dependencies": {
+    "@types/ali-oss": "^6.0.5",
+    "ali-oss": "^6.8.0",
+    "date-fns": "^2.14.0",
     "execa": "^4.0.1"
   }
 }
