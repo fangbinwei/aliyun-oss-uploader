@@ -58,6 +58,11 @@
           "type": "string",
           "markdownDescription": "- `${fileName}`: Filename of uploaded file.\n-`${extName}`: Filename extension of uploaded file.",
           "default": "${fileName}${extName}"
+        },
+        "elan.bucketFolder": {
+          "type": "string",
+          "markdownDescription": "- `${relativeToVsRootPath}`: The path of the directory where the currently activated file is located relative to the workspace root directory",
+          "default": ""
         }
       }
     }

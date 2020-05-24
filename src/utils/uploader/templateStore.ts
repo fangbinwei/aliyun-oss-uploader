@@ -1,23 +1,29 @@
 import vscode from 'vscode'
+import path from 'path'
+import { isSubDirectory } from '../index'
+
 interface RawConfig {
   outputFormat: string
   uploadName: string
+  bucketFolder: string
 }
 
 function getRe(match: string): RegExp {
-  return new RegExp(`\\$\\{${match}\\}`)
+  return new RegExp(`\\$\\{${match}\\}`, 'g')
 }
 
 const fileNameRe = getRe('fileName')
 const uploadNameRe = getRe('uploadName')
 const urlRe = getRe('url')
 const extNameRe = getRe('extName')
+const relativeToVsRootPathRe = getRe('relativeToVsRootPath')
 
 interface Template {
   fileName: string
   uploadName: string
   url: string
   extName: string
+  relativeToVsRootPath: string
 }
 
 class TemplateStore {
@@ -25,13 +31,15 @@ class TemplateStore {
   private uploadName = ''
   private url = ''
   private extName = ''
+  private relativeToVsRootPath = ''
   public raw = this.rawConfig()
   private rawConfig(): RawConfig {
     const config = vscode.workspace.getConfiguration('elan')
 
     return {
-      outputFormat: config.get<string>('outputFormat') || '',
-      uploadName: config.get<string>('uploadName') || ''
+      outputFormat: config.get<string>('outputFormat')?.trim() || '',
+      uploadName: config.get<string>('uploadName')?.trim() || '',
+      bucketFolder: config.get<string>('bucketFolder')?.trim() || ''
     }
   }
 
@@ -55,6 +63,33 @@ class TemplateStore {
           .replace(urlRe, this.url)
 
         return outputFormat
+      }
+      case 'bucketFolder': {
+        const workspaceFolders = vscode.workspace.workspaceFolders
+
+        const activeTextEditorFilename =
+          vscode.window.activeTextEditor?.document.fileName
+        if (workspaceFolders && activeTextEditorFilename) {
+          const rootPath = workspaceFolders[0].uri.fsPath
+          const activeTextEditorFolder = path.dirname(activeTextEditorFilename)
+
+          const relativePath = path.relative(rootPath, activeTextEditorFolder)
+          if (isSubDirectory(rootPath, activeTextEditorFolder)) {
+            this.set(
+              'relativeToVsRootPath',
+              path.sep === '\\' // windows
+                ? relativePath.split('\\').join('/')
+                : relativePath
+            )
+          }
+        }
+
+        const bucketFolder = this.raw.bucketFolder.replace(
+          relativeToVsRootPathRe,
+          this.relativeToVsRootPath
+        )
+
+        return bucketFolder
       }
 
       default:
