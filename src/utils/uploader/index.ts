@@ -4,8 +4,6 @@ import path from 'path'
 import Logger from '../log'
 import { TemplateStore } from './templateStore'
 
-let uploader: Uploader | null = null
-
 declare global {
   interface PromiseConstructor {
     allSettled(
@@ -20,8 +18,7 @@ declare global {
   }
 }
 
-interface WrapError {
-  raw: unknown
+interface WrapError extends Error {
   imageName: string
 }
 
@@ -56,7 +53,10 @@ function getUploadingProgress(title = 'Uploading image'): UploadingProgress {
 }
 
 export async function uploadUris(uris: vscode.Uri[]): Promise<void> {
-  const uploader = getUploader()
+  const uploader = Uploader.get()
+  // init OSS instance failed
+  if (!uploader) return
+
   const { progress, progressResolve } = getUploadingProgress(
     `Uploading ${uris.length} image(s)`
   )
@@ -65,11 +65,11 @@ export async function uploadUris(uris: vscode.Uri[]): Promise<void> {
   let finished = 0
   const urisPut = uris.map((uri) => {
     const templateStore = new TemplateStore()
-    const extName = path.extname(uri.fsPath)
-    const name = path.basename(uri.fsPath, extName)
+    const ext = path.extname(uri.fsPath)
+    const name = path.basename(uri.fsPath, ext)
 
     templateStore.set('fileName', name)
-    templateStore.set('extName', extName)
+    templateStore.set('ext', ext)
     const uploadName = templateStore.transform('uploadName')
     const bucketFolder = templateStore.transform('bucketFolder')
 
@@ -86,11 +86,9 @@ export async function uploadUris(uris: vscode.Uri[]): Promise<void> {
 
       return putObjectResult
     }).catch((err) => {
-      const wrapError = {
-        raw: err,
-        imageName: name
-      }
-      return wrapError
+      const defaultName = name + ext
+      err.imageName =
+        uploadName + (uploadName !== defaultName ? `(${defaultName})` : '')
     })
     return u
   })
@@ -121,6 +119,8 @@ export async function uploadUris(uris: vscode.Uri[]): Promise<void> {
           })
           .join(',')}`
       )
+      // show first error message
+      Logger.showErrorMessage((rejects[0].reason as WrapError).message)
     }, 1000)
   }
 
@@ -140,10 +140,6 @@ function afterUpload(clipboard: string[]): void {
   })
 }
 
-export function getUploader(): Uploader {
-  return uploader || (uploader = new Uploader())
-}
-
 function initOSSOptions(): OSS.Options {
   const config = vscode.workspace.getConfiguration('elan')
   const aliyunConfig = config.get<OSS.Options>('aliyun', {
@@ -151,6 +147,7 @@ function initOSSOptions(): OSS.Options {
     accessKeySecret: ''
   })
   return {
+    secure: true, // ensure protocol of callback url is https
     accessKeyId: aliyunConfig.accessKeyId.trim(),
     accessKeySecret: aliyunConfig.accessKeySecret.trim(),
     bucket: aliyunConfig.bucket?.trim(),
@@ -158,13 +155,33 @@ function initOSSOptions(): OSS.Options {
   }
 }
 
-class Uploader {
-  client: OSS
+export class Uploader {
+  private static cacheUploader: Uploader | null = null
+  private client: OSS
+  public expired: boolean
   constructor() {
     this.client = new OSS(initOSSOptions())
+    this.expired = false
+
+    // instance is expired if configuration update
     vscode.workspace.onDidChangeConfiguration(() => {
-      this.client = new OSS(initOSSOptions())
+      this.expired = true
     })
+  }
+  // singleton
+  static get(): Uploader | null {
+    let u
+    try {
+      u =
+        Uploader.cacheUploader && !Uploader.cacheUploader.expired
+          ? Uploader.cacheUploader
+          : (Uploader.cacheUploader = new Uploader())
+    } catch (err) {
+      // TODO: e.g.: require options.endpoint or options.region, how to corresponding to our vscode configuration?
+      Logger.showErrorMessage(err.message)
+      u = null
+    }
+    return u
   }
   async put(name: string, fsPath: string): Promise<OSS.PutObjectResult> {
     return this.client.put(name, fsPath)

@@ -8,21 +8,21 @@ interface RawConfig {
   bucketFolder: string
 }
 
-function getRe(match: string): RegExp {
+function getRe(match: keyof Template): RegExp {
   return new RegExp(`\\$\\{${match}\\}`, 'g')
 }
 
 const fileNameRe = getRe('fileName')
 const uploadNameRe = getRe('uploadName')
 const urlRe = getRe('url')
-const extNameRe = getRe('extName')
+const extRe = getRe('ext')
 const relativeToVsRootPathRe = getRe('relativeToVsRootPath')
 
 interface Template {
   fileName: string
   uploadName: string
   url: string
-  extName: string
+  ext: string
   relativeToVsRootPath: string
 }
 
@@ -30,7 +30,7 @@ class TemplateStore {
   private fileName = ''
   private uploadName = ''
   private url = ''
-  private extName = ''
+  private ext = ''
   private relativeToVsRootPath = ''
   public raw = this.rawConfig()
   private rawConfig(): RawConfig {
@@ -51,10 +51,10 @@ class TemplateStore {
       case 'uploadName': {
         const uploadName = this.raw.uploadName
           .replace(fileNameRe, this.fileName)
-          .replace(extNameRe, this.extName)
+          .replace(extRe, this.ext)
 
         this.set('uploadName', uploadName)
-        return uploadName
+        return uploadName || this.fileName
       }
       case 'outputFormat': {
         const outputFormat = this.raw.outputFormat
@@ -64,6 +64,7 @@ class TemplateStore {
 
         return outputFormat
       }
+      // TODO: slash compatible
       case 'bucketFolder': {
         const workspaceFolders = vscode.workspace.workspaceFolders
 
