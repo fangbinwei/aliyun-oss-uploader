@@ -44,7 +44,7 @@
       ],
       "explorer/context": [
         {
-          "when": "resourceExtname =~/^\\.(png|jpg|jpeg|webp|gif|bmp|tiff|ico|svg)$/",
+          "when": "resourceExtname =~/^\\.(png|jpg|jpeg|webp|gif|bmp|tiff|ico|svg)$/i",
           "command": "elan.uploadFromExplorerContext",
           "group": "5_cutcopypaste"
         }
