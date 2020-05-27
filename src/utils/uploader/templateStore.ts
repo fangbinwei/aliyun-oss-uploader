@@ -64,7 +64,6 @@ class TemplateStore {
 
         return outputFormat
       }
-      // TODO: slash compatible
       case 'bucketFolder': {
         const workspaceFolders = vscode.workspace.workspaceFolders
 
@@ -85,10 +84,16 @@ class TemplateStore {
           }
         }
 
-        const bucketFolder = this.raw.bucketFolder.replace(
+        let bucketFolder = this.raw.bucketFolder.replace(
           relativeToVsRootPathRe,
           this.relativeToVsRootPath
         )
+        // since relativeToVsRootPath may be empty string, normalize it
+        bucketFolder =
+          bucketFolder
+            .split('/')
+            .filter((s) => s !== '')
+            .join('/') + '/'
 
         return bucketFolder
       }

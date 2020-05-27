@@ -73,7 +73,7 @@ export async function uploadUris(uris: vscode.Uri[]): Promise<void> {
     const uploadName = templateStore.transform('uploadName')
     const bucketFolder = templateStore.transform('bucketFolder')
 
-    const putName = `${bucketFolder ? bucketFolder + '/' : ''}${uploadName}`
+    const putName = `${bucketFolder || ''}${uploadName}`
     const u = uploader.put(putName, uri.fsPath)
     u.then((putObjectResult) => {
       progress.report({
