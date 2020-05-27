@@ -85,8 +85,7 @@ export async function uploadUris(uris: vscode.Uri[]): Promise<void> {
       clipboard.push(templateStore.transform('outputFormat'))
 
       return putObjectResult
-    })
-    u.catch((err) => {
+    }).catch((err) => {
       const defaultName = name + ext
       err.imageName =
         uploadName + (uploadName !== defaultName ? `(${defaultName})` : '')
