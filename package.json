@@ -67,10 +67,7 @@
         },
         "elan.aliyun.region": {
           "type": "string",
-          "default": ""
-        },
-        "elan.aliyun.subPath": {
-          "type": "string",
+          "markdownDescription": "e.g. `oss-cn-shanghai`, [check details](https://github.com/ali-sdk/ali-oss#data-regions).",
           "default": ""
         },
         "elan.outputFormat": {
@@ -107,8 +104,10 @@
     "@types/vscode": "^1.45.0",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
+    "commitizen": "^4.1.2",
     "copy": "^0.3.2",
     "cpy-cli": "^3.1.1",
+    "cz-customizable": "^6.2.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.3",
@@ -124,5 +123,10 @@
     "ali-oss": "^6.8.0",
     "date-fns": "^2.14.0",
     "execa": "^4.0.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
   }
 }
