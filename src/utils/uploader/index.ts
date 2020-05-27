@@ -85,7 +85,8 @@ export async function uploadUris(uris: vscode.Uri[]): Promise<void> {
       clipboard.push(templateStore.transform('outputFormat'))
 
       return putObjectResult
-    }).catch((err) => {
+    })
+    u.catch((err) => {
       const defaultName = name + ext
       err.imageName =
         uploadName + (uploadName !== defaultName ? `(${defaultName})` : '')
@@ -112,6 +113,7 @@ export async function uploadUris(uris: vscode.Uri[]): Promise<void> {
     })
     setTimeout(() => {
       progressResolve()
+      //TODO: See output channel for more details
       Logger.showErrorMessage(
         `Failed to upload these images: ${rejects
           .map((r) => {
