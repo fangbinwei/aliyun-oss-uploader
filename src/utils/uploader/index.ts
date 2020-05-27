@@ -113,16 +113,20 @@ export async function uploadUris(uris: vscode.Uri[]): Promise<void> {
     })
     setTimeout(() => {
       progressResolve()
-      //TODO: See output channel for more details
-      Logger.showErrorMessage(
-        `Failed to upload these images: ${rejects
-          .map((r) => {
-            return (r.reason as WrapError).imageName
-          })
-          .join(',')}`
-      )
+      Logger.showErrorMessage(`Failed to upload ${rejects.length} image(s).`)
+
       // show first error message
-      Logger.showErrorMessage((rejects[0].reason as WrapError).message)
+      Logger.showErrorMessage(
+        (rejects[0].reason as WrapError).message +
+          '. See output channel for more details.'
+      )
+
+      for (const r of rejects) {
+        Logger.log(
+          `Failed: ${(r.reason as WrapError).imageName}.` +
+            ` Reason: ${(r.reason as WrapError).message}.`
+        )
+      }
     }, 1000)
   }
 
