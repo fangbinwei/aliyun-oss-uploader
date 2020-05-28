@@ -70,6 +70,8 @@ export async function uploadUris(uris: vscode.Uri[]): Promise<void> {
 
     templateStore.set('fileName', name)
     templateStore.set('ext', ext)
+    templateStore.set('imageUri', uri)
+
     const uploadName = templateStore.transform('uploadName')
     const bucketFolder = templateStore.transform('bucketFolder')
 
@@ -86,6 +88,7 @@ export async function uploadUris(uris: vscode.Uri[]): Promise<void> {
 
       return putObjectResult
     }).catch((err) => {
+      Logger.log(err.stack)
       const defaultName = name + ext
       err.imageName =
         uploadName + (uploadName !== defaultName ? `(${defaultName})` : '')
@@ -123,7 +126,7 @@ export async function uploadUris(uris: vscode.Uri[]): Promise<void> {
       for (const r of rejects) {
         Logger.log(
           `Failed: ${(r.reason as WrapError).imageName}.` +
-            ` Reason: ${(r.reason as WrapError).message}.`
+            ` Reason: ${(r.reason as WrapError).message}`
         )
       }
     }, 1000)
@@ -188,7 +191,11 @@ export class Uploader {
     }
     return u
   }
-  async put(name: string, fsPath: string): Promise<OSS.PutObjectResult> {
-    return this.client.put(name, fsPath)
+  async put(
+    name: string,
+    fsPath: string,
+    options?: OSS.PutObjectOptions
+  ): Promise<OSS.PutObjectResult> {
+    return this.client.put(name, fsPath, options)
   }
 }

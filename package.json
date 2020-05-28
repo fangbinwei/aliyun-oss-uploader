@@ -77,7 +77,7 @@
         },
         "elan.uploadName": {
           "type": "string",
-          "markdownDescription": "- `${fileName}`: Filename of uploaded file.\n-`${ext}`: Filename extension of uploaded file.",
+          "markdownDescription": "- `${fileName}`: Filename of uploaded file.\n-`${ext}`: Filename extension of uploaded file.\n- `${contentHash}`: the hash of image. By default, it's the hex digest of md5 hash. You can specify the length of the hash, e.g. `${contentHash:8}`",
           "default": "${fileName}${ext}"
         },
         "elan.bucketFolder": {
