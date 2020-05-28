@@ -1,5 +1,21 @@
 # aliyun oss uploader
 
+## Usage
+
+### upload from clipboard
+
+![updateFromClipboard](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/updateFromClipboard_bf2399e2.gif)
+
+### upload by explorer dialog
+
+![updateFromExplorer](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/updateFromExplorer_9f6ee648.gif)
+
+
+### upload by explorer context
+
+![updateFromExplorerContext](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/updateFromExplorerContext_37c3aac0.gif)
+
+> demo gif upload by this vscode extension.
 
 ## TODO
 
