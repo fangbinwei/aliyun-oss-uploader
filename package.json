@@ -67,14 +67,17 @@
       "properties": {
         "elan.aliyun.accessKeyId": {
           "type": "string",
+          "description": "Aliyun OSS accessKeyId.",
           "default": ""
         },
         "elan.aliyun.accessKeySecret": {
           "type": "string",
+          "description": "Aliyun OSS accessKeySecret.",
           "default": ""
         },
         "elan.aliyun.bucket": {
           "type": "string",
+          "description": "Aliyun OSS bucket instance.",
           "default": ""
         },
         "elan.aliyun.region": {
@@ -82,15 +85,16 @@
           "markdownDescription": "e.g. `oss-cn-shanghai`, [check details](https://github.com/ali-sdk/ali-oss#data-regions).",
           "default": ""
         },
+        "elan.uploadName": {
+          "type": "string",
+          "description": "Object name store on OSS",
+          "markdownDescription": "- `${fileName}`: Filename of uploaded file.\n-`${ext}`: Filename extension of uploaded file.\n- `${contentHash}`: the hash of image. By default, it's the hex digest of md5 hash. You can specify the length of the hash, e.g. `${contentHash:8}`",
+          "default": "${fileName}_${contentHash:8}${ext}"
+        },
         "elan.outputFormat": {
           "type": "string",
           "markdownDescription": "- `${fileName}`: Filename of uploaded file.\n- `${uploadName}`: Custom defined config. \n- `${url}`: After a file is uploaded successfully, the OSS sends a callback request to this URL.",
-          "default": "![${uploadName}](${url})"
-        },
-        "elan.uploadName": {
-          "type": "string",
-          "markdownDescription": "- `${fileName}`: Filename of uploaded file.\n-`${ext}`: Filename extension of uploaded file.\n- `${contentHash}`: the hash of image. By default, it's the hex digest of md5 hash. You can specify the length of the hash, e.g. `${contentHash:8}`",
-          "default": "${fileName}${ext}"
+          "default": "![${fileName}](${url})"
         },
         "elan.bucketFolder": {
           "type": "string",
