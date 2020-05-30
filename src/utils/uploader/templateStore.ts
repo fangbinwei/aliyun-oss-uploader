@@ -96,7 +96,13 @@ class TemplateStore {
 
         const activeTextEditorFilename =
           vscode.window.activeTextEditor?.document.fileName
-        if (workspaceFolders && activeTextEditorFilename) {
+
+        let bucketFolder = this.raw.bucketFolder
+        if (
+          relativeToVsRootPathRe.test(this.raw.bucketFolder) &&
+          workspaceFolders &&
+          activeTextEditorFilename
+        ) {
           const rootPath = workspaceFolders[0].uri.fsPath
           const activeTextEditorFolder = path.dirname(activeTextEditorFilename)
 
@@ -109,12 +115,12 @@ class TemplateStore {
                 : relativePath
             )
           }
+          bucketFolder = this.raw.bucketFolder.replace(
+            relativeToVsRootPathRe,
+            this.get('relativeToVsRootPath')
+          )
         }
 
-        let bucketFolder = this.raw.bucketFolder.replace(
-          relativeToVsRootPathRe,
-          this.get('relativeToVsRootPath')
-        )
         // since relativeToVsRootPath may be empty string, normalize it
         bucketFolder =
           bucketFolder
