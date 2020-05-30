@@ -1,13 +1,25 @@
 {
   "name": "aliyun-oss-uploader",
-  "displayName": "aliyun oss uploader",
-  "description": "description",
+  "displayName": "Aliyun OSS Uploader",
+  "description": "Focus on uploading image to aliyun OSS.",
   "publisher": "fangbinwei",
   "repository": {
     "type": "git",
     "url": "https://github.com/fangbinwei/aliyun-oss-uploader.git"
   },
+  "keywords": [
+    "aliyun",
+    "oss",
+    "image",
+    "picture",
+    "upload",
+    "aliyun oss",
+    "alibaba cloud",
+    "image uploader",
+    "upload image"
+  ],
   "version": "0.0.1",
+  "icon": "images/logo.png",
   "engines": {
     "vscode": "^1.45.0"
   },

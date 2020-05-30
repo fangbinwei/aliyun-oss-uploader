@@ -1,4 +1,11 @@
-# aliyun oss uploader
+# Aliyun OSS Uploader
+
+<p align="center">
+  <br />
+  <img src="https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/logo_368a1b87.png" alt="GitLens Logo"/ width="400">
+</p>
+
+> Élan is a vscode extension focus on uploading image to Alibaba Cloud (Aliyun) OSS.
 
 ## Usage
 
