@@ -103,12 +103,13 @@
   "scripts": {
     "vscode:prepublish": "yarn run compile",
     "compile": "yarn run copy && tsc -p ./",
+    "vspack": "vsce package",
+    "release": "standard-version",
+    "watch": "yarn run copy && tsc -watch -p ./",
     "copy": "cpy ./src/utils/clipboard/* ./out/utils/clipboard/",
     "lint": "eslint src --ext ts",
-    "watch": "yarn run copy && tsc -watch -p ./",
     "pretest": "yarn run compile && yarn run lint",
-    "test": "node ./out/test/runTest.js",
-    "vspack": "vsce package"
+    "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
     "@types/glob": "^7.1.1",
@@ -126,6 +127,7 @@
     "glob": "^7.1.6",
     "mocha": "^7.1.2",
     "prettier": "^2.0.5",
+    "standard-version": "^8.0.0",
     "typescript": "^3.8.3",
     "vsce": "^1.75.0",
     "vscode-test": "^1.3.0"
