@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.0.0...v1.0.1) (2020-05-31)
+
+
+### Bug Fixes
+
+* delete defalut value explanation ([b410aa6](https://github.com/fangbinwei/aliyun-oss-uploader/commit/b410aa672e0beaa6c275bc2bc0b904fd1240803d))
+
 ## 1.0.0 (2020-05-31)
 
 
