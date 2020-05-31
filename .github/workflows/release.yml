@@ -1,0 +1,45 @@
+name: Build Asset and Upload Release Asset
+
+on:
+  push:
+    tags: 
+      - 'v*'
+
+jobs:
+  build: 
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install yarn -g
+    - run: yarn install
+    - run: yarn compile
+    - run: yarn vspack
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+        tag_name: ${{github.ref}}
+        release_name: VSCode Extension Release ${{github.ref}}
+        draft: false
+        prerelease: false
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./aliyun-oss-uploader.vsix
+        asset_name: aliyun-oss-uploader-${{github.ref}}.vsix
+        asset_content_type: application/zip
