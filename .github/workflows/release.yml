@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x]
+        node-version: [14.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -43,3 +43,6 @@ jobs:
         asset_path: ./aliyun-oss-uploader.vsix
         asset_name: aliyun-oss-uploader-${{github.ref}}.vsix
         asset_content_type: application/zip
+    - run: npm install vsce -g
+    - name: Publish Extension to Market
+      run: vsce publish -p ${{secrets.VSCE_TOKEN}}
