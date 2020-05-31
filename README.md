@@ -65,8 +65,6 @@ crypto.createHash('md5')
 ### `elan.outputFormat`
 After uploading image, this output will be pasted to your clipboard. If you have opened a *.md, this will be pasted to your markdown automatically .
 
-Default: `![${fileName}](${url})`
-
 - `${fileName}`: Filename of uploaded file.
 - `${uploadName}`: see `elan.uploadName`.
 - `${url}`: After a file is uploaded successfully, the OSS sends a callback request to this URL.
