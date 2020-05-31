@@ -8,7 +8,8 @@ module.exports = {
     { type: 'docs', hidden: true },
     { type: 'style', hidden: true },
     { type: 'refactor', hidden: true },
-    { type: 'perf', hidden: true }
+    { type: 'perf', hidden: true },
+    { type: 'ci', hidden: true}
   ],
   releaseCommitMessageFormat: 'chore(release): v{{currentTag}}'
 }
