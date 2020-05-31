@@ -21,7 +21,7 @@
   "version": "0.0.1",
   "icon": "images/logo.png",
   "engines": {
-    "vscode": "^1.45.0"
+    "vscode": "^1.40.0"
   },
   "categories": [
     "Other"
@@ -107,7 +107,7 @@
   "scripts": {
     "vscode:prepublish": "yarn run compile",
     "compile": "yarn run copy && tsc -p ./",
-    "vspack": "vsce package",
+    "vspack": "vsce package -o aliyun-oss-uploader.vsix",
     "release": "standard-version",
     "watch": "yarn run copy && tsc -watch -p ./",
     "copy": "cpy ./src/utils/clipboard/* ./out/utils/clipboard/",
@@ -118,7 +118,7 @@
   "devDependencies": {
     "@types/glob": "^7.1.1",
     "@types/mocha": "^7.0.2",
-    "@types/vscode": "^1.45.0",
+    "@types/vscode": "^1.40.0",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
     "commitizen": "^4.1.2",
