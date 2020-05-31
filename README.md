@@ -7,9 +7,12 @@
 
 > Élan is a vscode extension focus on uploading image to Alibaba Cloud (Aliyun) OSS.
 
+## Support
+If you find it useful, please [star me on Github](https://github.com/fangbinwei/aliyun-oss-uploader).
+
 ## Usage
 
-1. You should create the [OSS instance](https://www.aliyun.com/product/oss/?lang=en) and get the `accessKeyId` and `accessKeySecret`. Then you should create bucket instance and get the `bucket` name.
+1. You should create the [OSS instance](https://www.aliyun.com/product/oss/?lang=en) and get the `accessKeyId` and `accessKeySecret`. Then you should create bucket instance and get the `bucket` name. [see chapter 'Create bucket'](#create-bucket)
 
 2. Setting the configuration of the extension
 
@@ -18,10 +21,6 @@
   - upload image from explorer
 
 * Right click the image of file explorer, click the menu item `Elan: upload image`
-
-
-
-![aliyun-example](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/aliyun-example_72d716f9.png)
 
 ### Upload from clipboard
 
@@ -75,7 +74,7 @@ Default: `![${fileName}](${url})`
 ### `elan.bucketFolder`
 By default, you can find your image object by `elan.uploadName`, e.g. `example.png`. If we set `elan.bucketFold` to `github/aliyun-oss-uploader`, our images will be upload to "folder" ([not a real folder](https://help.aliyun.com/document_detail/31827.html)). You can find uploaded image in "folder" `github/aliyun-oss-uploader/`.
 
-![oss browser](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/2020-05-30-20-01-36_3b5703a7.png)
+![oss browser](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/2020-05-31-19-02-13_55660788.png)
 
 - `${relativeToVsRootPath}`: The path of the directory where the currently activated file is located relative to the workspace root directory
 
@@ -90,6 +89,11 @@ For example, you set `elan.bucketFold` to `blog/${relativeToVsRootPath}`, and wo
 ```
 
 If you open the `example.md` by text editor, the "folder" will be `blog/FrontEnd/Engineering/webpack/`. If no file is opened, `${relativeToVsRootPath}` will be parsed to `''`.
+
+## Create Bucket
+
+![create-bucket](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/create-bucket_5f7df897.png)
+
 
 ## TODO
 
