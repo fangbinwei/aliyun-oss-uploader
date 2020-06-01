@@ -22,6 +22,7 @@ jobs:
     - run: npm install yarn -g
     - run: yarn install
     - run: yarn compile
+    - run: yarn build
     - run: yarn vspack
     - name: Create Release
       id: create_release
