@@ -115,11 +115,12 @@ class TemplateStore {
                 : relativePath
             )
           }
-          bucketFolder = this.raw.bucketFolder.replace(
-            relativeToVsRootPathRe,
-            this.get('relativeToVsRootPath')
-          )
         }
+
+        bucketFolder = this.raw.bucketFolder.replace(
+          relativeToVsRootPathRe,
+          this.get('relativeToVsRootPath')
+        )
 
         // since relativeToVsRootPath may be empty string, normalize it
         bucketFolder =
