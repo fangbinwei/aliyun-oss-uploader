@@ -18,7 +18,7 @@
     "image uploader",
     "upload image"
   ],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "icon": "images/logo.png",
   "engines": {
     "vscode": "^1.40.0"
