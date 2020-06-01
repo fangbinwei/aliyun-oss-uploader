@@ -48,7 +48,13 @@ export async function saveClipboardImageToFile(
 }
 
 function getClipboardConfigPath(fileName: string): string {
-  return path.resolve(__dirname, '../utils/clipboard/', fileName)
+  return path.resolve(
+    __dirname,
+    process.env.NODE_ENV === 'production'
+      ? './clipboard'
+      : '../utils/clipboard/',
+    fileName
+  )
 }
 
 async function saveWin32ClipboardImageToFile(
