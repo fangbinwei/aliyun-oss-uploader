@@ -12,7 +12,7 @@ node_modules/**
 .gitignore
 .eslintrc.js
 .eslintignore
-rollup.config.js
+webpack.config.js
 tsconfig*.json
 yarn.lock
 .prettierrc.js
