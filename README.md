@@ -101,11 +101,13 @@ If you open the `example.md` by text editor, the "folder" will be `blog/FrontEnd
 * [x] specify 'folder' of bucket
 * [x] upload image from explorer context (sidebar)
 * [x] content hash
-* [ ] extension icon
+* [x] extension icon
+* [x] bundle by webpack/rollup
+* [ ] enhance 'bucketFolder'
+* [ ] inquire before upload to check folder
 * [ ] decoupling logic by tapable
-* [ ] bundle by webpack/rollup
 * [ ] upload embed svg as *.svg from clipboard
-* [ ] image compress (by imagemin)
+* [ ] image compress (by imagemin/ aliyun OSS can realize it by adding '?x-oss-process=' after url)
 * [ ] unit test
 * [ ] delete image when hover GFM(github flavored markdown)
 * [ ] editor/title button to upload image
