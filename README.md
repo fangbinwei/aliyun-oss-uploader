@@ -92,6 +92,11 @@ If you open the `example.md` by text editor, the "folder" will be `blog/FrontEnd
 
 ![create-bucket](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/create-bucket_5f7df897.png)
 
+## Debugger Project
+
+If you want to debugger the project, please run `yarn webpack-dev` first, and press `F5` to Run Extension. Then we can debugger the output of webpack dist.
+
+> I'm trying to find a better way ...
 
 ## TODO
 
