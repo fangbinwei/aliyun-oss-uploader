@@ -34,3 +34,10 @@ export function getHashDigest(
     return 'EF_BF_BD'
   }
 }
+
+export function getActiveMd(): vscode.TextEditor | undefined {
+  const activeTextEditor = vscode.window.activeTextEditor
+  if (!activeTextEditor || activeTextEditor.document.languageId !== 'markdown')
+    return
+  return activeTextEditor
+}

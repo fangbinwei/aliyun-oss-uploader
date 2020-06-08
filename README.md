@@ -51,7 +51,8 @@ Default: `${fileName}_${contentHash:8}${ext}`
 
 - `${fileName}`: Filename of uploaded file.
 - `${ext}`: Filename extension of uploaded file.
-- `${contentHash}`: the hash of image. By default, it's the hex digest of md5 hash. You can specify the length of the hash, e.g. `${contentHash:8}`.
+- `${contentHash}`: The hash of image. By default, it's the hex digest of md5 hash. You can specify the length of the hash, e.g. `${contentHash:8}`.
+- `${activeMdFilename}`: Filename of active markdown in text editor.
 
 Support `${<hashType>:hash:<digestType>:<length>}`, default:
 ```js
@@ -68,25 +69,39 @@ After uploading image, this output will be pasted to your clipboard. If you have
 - `${fileName}`: Filename of uploaded file.
 - `${uploadName}`: see `elan.uploadName`.
 - `${url}`: After a file is uploaded successfully, the OSS sends a callback request to this URL.
+- `${activeMdFilename}`: Filename of active markdown in text editor.
 
 ### `elan.bucketFolder`
 By default, you can find your image object by `elan.uploadName`, e.g. `example.png`. If we set `elan.bucketFold` to `github/aliyun-oss-uploader`, our images will be upload to "folder" ([not a real folder](https://help.aliyun.com/document_detail/31827.html)). You can find uploaded image in "folder" `github/aliyun-oss-uploader/`.
 
 ![oss browser](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/2020-05-31-19-02-13_55660788.png)
 
-- `${relativeToVsRootPath}`: The path of the directory where the currently activated file is located relative to the workspace root directory
+- `${relativeToVsRootPath}`: The path of the directory where the currently active file is located relative to the workspace root directory
+- `${activeMdFilename}`: Filename of active markdown in text editor.
 
-For example, you set `elan.bucketFold` to `blog/${relativeToVsRootPath}`, and workspace is like below
+For example, you set `elan.bucketFold` to `blog/${relativeToVsRootPath}/`, and workspace is like below
 
 ```bash
 .
 ├── FrontEnd
 │   └── Engineering
 │       └── webpack
+│            ├── example.js
 │            └── example.md
 ```
 
-If you open the `example.md` by text editor, the "folder" will be `blog/FrontEnd/Engineering/webpack/`. If no file is opened, `${relativeToVsRootPath}` will be parsed to `''`.
+If you open the `example.md` by text editor, the "folder" will be `blog/FrontEnd/Engineering/webpack/`.
+
+Or you set `elan.bucketFold` to `blog/${relativeToVsRootPath}/${activeMdFilename}/`, the "folder" will be `blog/FrontEnd/Engineering/webpack/example/`.
+
+If no file is opened, `${relativeToVsRootPath}` will be parsed to `''`, . If no active markdown, `${activeMdFilename}` will be parsed to `''`.
+
+|    opened file    | `blog/${relativeToVsRootPath}/` | `blog/${relativeToVsRootPath}/${activeMdFilename}/` |
+| ---------- | --- | --- |
+| example.md |  blog/FrontEnd/Engineering/webpack/ | blog/FrontEnd/Engineering/webpack/example/ |
+| example.js       |  blog/FrontEnd/Engineering/webpack/ | blog/FrontEnd/Engineering/webpack/ |
+| no opened file       |  blog/ | blog/ |
+
 
 ## Create Bucket
 
@@ -108,13 +123,13 @@ If you want to debugger the project, please run `yarn webpack-dev` first, and pr
 * [x] content hash
 * [x] extension icon
 * [x] bundle by webpack/rollup
-* [ ] enhance 'bucketFolder'
+* [x] enhance 'bucketFolder'
+* [ ] delete image when hover GFM(github flavored markdown)
 * [ ] inquire before upload to check folder
 * [ ] decoupling logic by tapable
 * [ ] upload embed svg as *.svg from clipboard
 * [ ] image compress (by imagemin/ aliyun OSS can realize it by adding '?x-oss-process=' after url)
 * [ ] unit test
-* [ ] delete image when hover GFM(github flavored markdown)
 * [ ] editor/title button to upload image
 * [ ] sidebar extension (e.g. show recent uploaded image)
 * [ ] drag image and drop to markdown. [Limit](https://github.com/microsoft/vscode/issues/5240)

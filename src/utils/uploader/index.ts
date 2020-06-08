@@ -3,6 +3,7 @@ import OSS from 'ali-oss'
 import path from 'path'
 import Logger from '../log'
 import { TemplateStore } from './templateStore'
+import { getActiveMd } from '../index'
 
 declare global {
   interface PromiseConstructor {
@@ -67,6 +68,13 @@ export async function uploadUris(uris: vscode.Uri[]): Promise<void> {
     const templateStore = new TemplateStore()
     const ext = path.extname(uri.fsPath)
     const name = path.basename(uri.fsPath, ext)
+    const activeMd = getActiveMd()
+    if (activeMd) {
+      const fileName = activeMd.document.fileName
+      const ext = path.extname(fileName)
+      const name = path.basename(fileName, ext)
+      templateStore.set('activeMdFilename', name)
+    }
 
     templateStore.set('fileName', name)
     templateStore.set('ext', ext)
@@ -139,12 +147,10 @@ function afterUpload(clipboard: string[]): void {
   if (!clipboard.length) return
   const GFM = clipboard.join('\n\n') + '\n\n'
   vscode.env.clipboard.writeText(GFM)
-  const activeTextEditor = vscode.window.activeTextEditor
-  if (!activeTextEditor || activeTextEditor.document.languageId !== 'markdown')
-    return
 
-  activeTextEditor.edit((textEditorEdit) => {
-    textEditorEdit.insert(activeTextEditor.selection.active, GFM)
+  const activeTextMd = getActiveMd()
+  activeTextMd?.edit((textEditorEdit) => {
+    textEditorEdit.insert(activeTextMd.selection.active, GFM)
   })
 }
 

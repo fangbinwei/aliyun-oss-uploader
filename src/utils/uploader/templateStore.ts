@@ -17,11 +17,13 @@ const uploadNameRe = getRe('uploadName')
 const urlRe = getRe('url')
 const extRe = getRe('ext')
 const relativeToVsRootPathRe = getRe('relativeToVsRootPath')
+const activeMdFilenameRe = getRe('activeMdFilename')
 // ${<hashType>:hash:<digestType>:<length>}
 const contentHashRe = /\$\{(?:([^:}]+):)?contentHash(?::([a-z]+\d*))?(?::(\d+))?\}/gi
 
 interface Store {
   fileName: string
+  activeMdFilename: string
   uploadName: string
   url: string
   ext: string
@@ -33,6 +35,7 @@ interface Store {
 class TemplateStore {
   private store: Store = {
     fileName: '',
+    activeMdFilename: '',
     uploadName: '',
     url: '',
     ext: '',
@@ -64,6 +67,7 @@ class TemplateStore {
         let uploadName = this.raw.uploadName
           .replace(fileNameRe, this.get('fileName'))
           .replace(extRe, this.get('ext'))
+          .replace(activeMdFilenameRe, this.get('activeMdFilename'))
 
         const imageUri = this.get('imageUri')
         if (imageUri) {
@@ -88,6 +92,7 @@ class TemplateStore {
           .replace(fileNameRe, this.get('fileName'))
           .replace(uploadNameRe, this.get('uploadName'))
           .replace(urlRe, this.get('url'))
+          .replace(activeMdFilenameRe, this.get('activeMdFilename'))
 
         return outputFormat
       }
@@ -117,10 +122,9 @@ class TemplateStore {
           }
         }
 
-        bucketFolder = this.raw.bucketFolder.replace(
-          relativeToVsRootPathRe,
-          this.get('relativeToVsRootPath')
-        )
+        bucketFolder = this.raw.bucketFolder
+          .replace(relativeToVsRootPathRe, this.get('relativeToVsRootPath'))
+          .replace(activeMdFilenameRe, this.get('activeMdFilename'))
 
         // since relativeToVsRootPath may be empty string, normalize it
         bucketFolder =

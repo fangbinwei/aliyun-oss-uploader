@@ -87,18 +87,17 @@
         },
         "elan.uploadName": {
           "type": "string",
-          "description": "Object name store on OSS",
-          "markdownDescription": "- `${fileName}`: Filename of uploaded file.\n-`${ext}`: Filename extension of uploaded file.\n- `${contentHash}`: the hash of image. By default, it's the hex digest of md5 hash. You can specify the length of the hash, e.g. `${contentHash:8}`",
+          "markdownDescription": "Object name store on OSS\n- `${fileName}`: Filename of uploaded file.\n-`${ext}`: Filename extension of uploaded file.\n- `${contentHash}`: The hash of image. By default, it's the hex digest of md5 hash. You can specify the length of the hash, e.g. `${contentHash:8}`. \n-`${activeMdFilename}`: Filename of active markdown in text editor.",
           "default": "${fileName}_${contentHash:8}${ext}"
         },
         "elan.outputFormat": {
           "type": "string",
-          "markdownDescription": "- `${fileName}`: Filename of uploaded file.\n- `${uploadName}`: Custom defined config. \n- `${url}`: After a file is uploaded successfully, the OSS sends a callback request to this URL.",
+          "markdownDescription": "- `${fileName}`: Filename of uploaded file.\n- `${uploadName}`: Custom defined config. \n- `${url}`: After a file is uploaded successfully, the OSS sends a callback request to this URL. \n-`${activeMdFilename}`: Filename of markdown in active text editor.",
           "default": "![${fileName}](${url})"
         },
         "elan.bucketFolder": {
           "type": "string",
-          "markdownDescription": "- `${relativeToVsRootPath}`: The path of the directory where the currently activated file is located relative to the workspace root directory",
+          "markdownDescription": "- `${relativeToVsRootPath}`: The path of the directory where the currently active file is located relative to the workspace root directory. \n-`${activeMdFilename}`: Filename of markdown in active text editor.",
           "default": ""
         }
       }
