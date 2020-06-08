@@ -18,7 +18,7 @@
     "image uploader",
     "upload image"
   ],
-  "version": "1.0.2",
+  "version": "1.1.0",
   "icon": "images/logo.png",
   "engines": {
     "vscode": "^1.40.0"
@@ -29,7 +29,8 @@
   "activationEvents": [
     "onCommand:elan.uploadFromClipboard",
     "onCommand:elan.uploadFromExplorer",
-    "onCommand:elan.uploadFromExplorerContext"
+    "onCommand:elan.uploadFromExplorerContext",
+    "onLanguage:markdown"
   ],
   "main": "./dist/extension.js",
   "contributes": {

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.0.2...v1.1.0) (2020-06-08)
+
+
+### Features
+
+* **templateSubstitute:** add '${activeMdFilename}' ([6aecef5](https://github.com/fangbinwei/aliyun-oss-uploader/commit/6aecef57e647c336bff914b86fb388d4ebc32b36))
+
 ### [1.0.2](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.0.1...v1.0.2) (2020-06-01)
 
 
