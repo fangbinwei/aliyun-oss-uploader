@@ -16,26 +16,40 @@ If you find it useful, please [star me on Github](https://github.com/fangbinwei/
 
 2. Setting the configuration of the extension
 
+### Upload Image(s)
+
 * Open the command panel (`ctrl+shift+p`/`command+shift+p`/`F1`) and type 'elan'.
   - upload image from clipboard
   - upload image from explorer
 
 * Right click the image of file explorer, click the menu item `Elan: upload image`
 
-### Upload from clipboard
+### Delete Image
+
+* Hover the image syntax in markdown, click `Delete image` to delete the image in OSS.
+
+![hoverDeleteCut](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/hoverDeleteCut_f9af47b7.png)
+
+### Usage Demo
+
+#### Upload from clipboard
 
 ![updateFromClipboard](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/updateFromClipboard_bf2399e2.gif)
 
-### Upload by explorer dialog
+#### Upload by explorer dialog
 
 ![updateFromExplorer](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/updateFromExplorer_9f6ee648.gif)
 
 
-### Upload by explorer context
+#### Upload by explorer context
 
 ![updateFromExplorerContext](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/updateFromExplorerContext_37c3aac0.gif)
 
 > demo gif upload by this vscode extension.
+
+#### Delete image
+
+![hoverDelete](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/hoverDelete_d27177e2.gif)
 
 ## Configuration
 ### `elan.aliyun.accessKeyId`
@@ -125,6 +139,7 @@ If you want to debugger the project, please run `yarn webpack-dev` first, and pr
 * [x] bundle by webpack/rollup
 * [x] enhance 'bucketFolder'
 * [x] delete image when hover GFM(github flavored markdown)
+* [ ] confirmation before deleting image
 * [ ] inquire before upload to check folder
 * [ ] decoupling logic by tapable
 * [ ] upload embed svg as *.svg from clipboard
