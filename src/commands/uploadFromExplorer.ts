@@ -1,5 +1,5 @@
 import vscode from 'vscode'
-import { uploadUris } from '@/utils/uploader/index'
+import uploadUris from '@/utils/uploader/uploadUris'
 
 export default async function uploadImageFromExplorer(): Promise<void> {
   const result = await vscode.window.showOpenDialog({
