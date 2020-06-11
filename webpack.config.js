@@ -1,3 +1,4 @@
+// @ts-check
 const path = require('path')
 const webpack = require('webpack')
 const CopyPlugin = require('copy-webpack-plugin')
@@ -22,7 +23,10 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin') // Wow!
     vscode: 'commonjs vscode'
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
+    alias: {
+      '@': path.resolve(__dirname, 'src')
+    }
   },
   module: {
     rules: [

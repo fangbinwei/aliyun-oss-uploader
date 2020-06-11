@@ -1,9 +1,9 @@
 import vscode from 'vscode'
 import OSS from 'ali-oss'
 import path from 'path'
-import Logger from '../log'
+import Logger from '@/utils/log'
 import { TemplateStore } from './templateStore'
-import { getActiveMd } from '../index'
+import { getActiveMd } from '@/utils/index'
 
 declare global {
   interface PromiseConstructor {

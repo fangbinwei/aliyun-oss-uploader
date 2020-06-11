@@ -1,6 +1,6 @@
 import vscode from 'vscode'
 import path from 'path'
-import { isSubDirectory, getHashDigest } from '../index'
+import { isSubDirectory, getHashDigest } from '@/utils/index'
 
 interface RawConfig {
   outputFormat: string

@@ -1,9 +1,9 @@
-import Logger from '../utils/log'
+import Logger from '@/utils/log'
 import path from 'path'
 import fs from 'fs'
 import execa from 'execa'
 import os from 'os'
-import { uploadUris } from '../utils/uploader/index'
+import { uploadUris } from '@/utils/uploader/index'
 import vscode from 'vscode'
 import { format } from 'date-fns'
 
