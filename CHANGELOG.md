@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.1.0...v1.2.0) (2020-06-11)
+
+
+### Features
+
+* **uploader:** delete image when hovering link in markdown ([27e3022](https://github.com/fangbinwei/aliyun-oss-uploader/commit/27e302217d99fbdf8bdf0427d83cd174d0ab0370))
+
 ## [1.1.0](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.0.2...v1.1.0) (2020-06-08)
 
 
