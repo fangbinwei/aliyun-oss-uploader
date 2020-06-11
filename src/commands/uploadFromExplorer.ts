@@ -1,5 +1,5 @@
 import vscode from 'vscode'
-import uploadUris from '@/utils/uploader/uploadUris'
+import uploadUris from '@/uploader/uploadUris'
 import { SUPPORT_EXT } from '@/utils/constant'
 
 export default async function uploadImageFromExplorer(): Promise<void> {

@@ -1,4 +1,4 @@
-import deleteUri from '@/utils/uploader/deleteUri'
+import deleteUri from '@/uploader/deleteUri'
 import { getActiveMd } from '@/utils/index'
 import vscode from 'vscode'
 
