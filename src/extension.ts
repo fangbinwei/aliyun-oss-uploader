@@ -2,6 +2,8 @@ import vscode from 'vscode'
 import uploadFromClipboard from './commands/uploadFromClipboard'
 import uploadFromExplorer from './commands/uploadFromExplorer'
 import uploadFromExplorerContext from './commands/uploadFromExplorerContext'
+import hoverDelete from './commands/hoverDelete'
+import hover from './language/hover'
 import Logger from './utils/log'
 
 // this method is called when your extension is activated
@@ -22,7 +24,9 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand(
       'elan.uploadFromExplorerContext',
       uploadFromExplorerContext
-    )
+    ),
+    vscode.commands.registerCommand('elan.delete', hoverDelete),
+    vscode.languages.registerHoverProvider('markdown', hover)
   ]
   context.subscriptions.push(...disposable)
 }

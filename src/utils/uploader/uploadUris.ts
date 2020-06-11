@@ -2,7 +2,7 @@ import vscode from 'vscode'
 import path from 'path'
 import { TemplateStore } from './templateStore'
 import Logger from '@/utils/log'
-import { getActiveMd } from '@/utils/index'
+import { getActiveMd, getProgress } from '@/utils/index'
 import Uploader from './index'
 
 declare global {
@@ -23,42 +23,12 @@ interface WrapError extends Error {
   imageName: string
 }
 
-interface UploadingProgress {
-  progress: vscode.Progress<{ message?: string; increment?: number }>
-  progressResolve: (value?: unknown) => void
-  progressReject: (value?: unknown) => void
-}
-
-function getUploadingProgress(title = 'Uploading image'): UploadingProgress {
-  let progressResolve, progressReject, progress
-  vscode.window.withProgress(
-    {
-      location: vscode.ProgressLocation.Notification,
-      title
-    },
-    (p) => {
-      return new Promise((resolve, reject) => {
-        progressResolve = resolve
-        progressReject = reject
-        progress = p
-      })
-    }
-  )
-  if (!progress || !progressResolve || !progressReject)
-    throw new Error('Failed to init vscode progress')
-  return {
-    progress,
-    progressResolve,
-    progressReject
-  }
-}
-
 export default async function uploadUris(uris: vscode.Uri[]): Promise<void> {
   const uploader = Uploader.get()
   // init OSS instance failed
   if (!uploader) return
 
-  const { progress, progressResolve } = getUploadingProgress(
+  const { progress, progressResolve } = getProgress(
     `Uploading ${uris.length} image(s)`
   )
   const clipboard: string[] = []

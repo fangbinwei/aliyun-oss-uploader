@@ -1,10 +1,11 @@
 import vscode from 'vscode'
 import uploadUris from '@/utils/uploader/uploadUris'
+import { SUPPORT_EXT } from '@/utils/constant'
 
 export default async function uploadImageFromExplorer(): Promise<void> {
   const result = await vscode.window.showOpenDialog({
     filters: {
-      Images: ['png', 'jpg', 'jpeg', 'webp', 'gif', 'bmp', 'tiff', 'ico', 'svg']
+      Images: SUPPORT_EXT.slice()
     },
     canSelectMany: true
   })

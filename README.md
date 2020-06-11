@@ -124,11 +124,12 @@ If you want to debugger the project, please run `yarn webpack-dev` first, and pr
 * [x] extension icon
 * [x] bundle by webpack/rollup
 * [x] enhance 'bucketFolder'
-* [ ] delete image when hover GFM(github flavored markdown)
+* [x] delete image when hover GFM(github flavored markdown)
 * [ ] inquire before upload to check folder
 * [ ] decoupling logic by tapable
 * [ ] upload embed svg as *.svg from clipboard
 * [ ] image compress (by imagemin/ aliyun OSS can realize it by adding '?x-oss-process=' after url)
+* [ ] x-oss-process & vscode.CodeActionProvider
 * [ ] unit test
 * [ ] editor/title button to upload image
 * [ ] sidebar extension (e.g. show recent uploaded image)

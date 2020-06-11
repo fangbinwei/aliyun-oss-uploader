@@ -1,20 +1,10 @@
 import vscode from 'vscode'
 import OSS from 'ali-oss'
 import Logger from '@/utils/log'
+import { getOssConfiguration } from '@/utils/index'
 
-function initOSSOptions(): OSS.Options {
-  const config = vscode.workspace.getConfiguration('elan')
-  const aliyunConfig = config.get<OSS.Options>('aliyun', {
-    accessKeyId: '',
-    accessKeySecret: ''
-  })
-  return {
-    secure: true, // ensure protocol of callback url is https
-    accessKeyId: aliyunConfig.accessKeyId.trim(),
-    accessKeySecret: aliyunConfig.accessKeySecret.trim(),
-    bucket: aliyunConfig.bucket?.trim(),
-    region: aliyunConfig.region?.trim()
-  }
+interface DeleteResponse {
+  res: OSS.NormalSuccessResponse
 }
 
 export default class Uploader {
@@ -22,7 +12,7 @@ export default class Uploader {
   private client: OSS
   public expired: boolean
   constructor() {
-    this.client = new OSS(initOSSOptions())
+    this.client = new OSS(getOssConfiguration())
     this.expired = false
 
     // instance is expired if configuration update
@@ -51,5 +41,12 @@ export default class Uploader {
     options?: OSS.PutObjectOptions
   ): Promise<OSS.PutObjectResult> {
     return this.client.put(name, fsPath, options)
+  }
+  async delete(
+    name: string,
+    options?: OSS.RequestOptions
+  ): Promise<DeleteResponse> {
+    // FIXME: @types/ali-oss bug, I will create pr
+    return this.client.delete(name, options) as any
   }
 }
