@@ -7,13 +7,8 @@ module.exports = {
   },
   plugins: ['@typescript-eslint'],
   rules: {
-    '@typescript-eslint/no-use-before-define': 'off'
-//     '@typescript-eslint/class-name-casing': 'warn',
-//     '@typescript-eslint/semi': 'warn',
-//     curly: 'warn',
-//     eqeqeq: 'warn',
-//     'no-throw-literal': 'warn',
-//     semi: 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
+    'no-console': ['error']
   },
   extends: [
     'eslint:recommended',
