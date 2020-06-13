@@ -125,9 +125,8 @@ If no file is opened, `${relativeToVsRootPath}` will be parsed to `''`, . If no 
 
 ## Debugger Project
 
-If you want to debugger the project, please run `yarn webpack-dev` first, and press `F5` to Run Extension. Then we can debugger the output of webpack dist.
+If you want to debugger the project, just press `F5` to Run Extension. Then we can debugger the output of webpack dist.
 
-> I'm trying to find a better way ...
 
 ## TODO
 

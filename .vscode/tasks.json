@@ -1,20 +1,47 @@
 // See https://go.microsoft.com/fwlink/?LinkId=733558
 // for the documentation about the tasks.json format
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"type": "npm",
-			"script": "watch",
-			"problemMatcher": "$tsc-watch",
-			"isBackground": true,
-			"presentation": {
-				"reveal": "always"
-			},
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		}
-	]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "watch",
+      "problemMatcher": "$tsc-watch",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    // https://zhuanlan.zhihu.com/p/54428900
+    {
+      "type": "npm",
+      "script": "webpack-dev",
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": [
+          {
+            // this regexp is invalid? not catch file/location/message ?
+            "regexp": "\\[tsl\\] ERROR",
+            "file": 1,
+            "location": 2,
+            "message": 3
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Compilation \\w+ starting…",
+          "endsPattern": "Compilation\\s+finished"
+        }
+      },
+      "isBackground": true,
+
+      "presentation": {
+        "reveal": "always"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
 }

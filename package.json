@@ -112,7 +112,7 @@
     "release": "standard-version",
     "clean": "rm -rf dist out",
     "watch": "yarn run copy && tsc --watch -p ./",
-    "webpack-dev": "webpack --mode development --watch",
+    "webpack-dev": "webpack --mode development --watch --info-verbosity verbose",
     "copy": "cpy ./src/utils/clipboard/* ./out/utils/clipboard/",
     "lint": "eslint src --ext ts",
     "pretest": "yarn run compile && yarn run lint",
