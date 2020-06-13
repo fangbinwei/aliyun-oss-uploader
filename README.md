@@ -26,7 +26,9 @@ If you find it useful, please [star me on Github](https://github.com/fangbinwei/
 
 ### Delete Image
 
-* Hover the image syntax in markdown, click `Delete image` to delete the image in OSS.
+* Hover the image syntax in markdown, click `Delete image` to delete the image in OSS. 
+
+>only support image syntax now
 
 ![hoverDeleteCut](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/hoverDeleteCut_f9af47b7.png)
 
@@ -49,7 +51,7 @@ If you find it useful, please [star me on Github](https://github.com/fangbinwei/
 
 #### Delete image
 
-![hoverDelete](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/hoverDelete_d27177e2.gif)
+![hoverDelete](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/hoverDelete_03dc5db7.gif)
 
 ## Configuration
 ### `elan.aliyun.accessKeyId`
