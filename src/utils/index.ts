@@ -68,6 +68,10 @@ export function removeLeadingSlash(p: string): string {
   return p.replace(/^\/+/, '')
 }
 
+export function removeTrailingSlash(p: string): string {
+  return p.replace(/\/+$/, '')
+}
+
 export function getOssConfiguration(): OSS.Options {
   const config = vscode.workspace.getConfiguration('elan')
   const aliyunConfig = config.get<OSS.Options>('aliyun', {

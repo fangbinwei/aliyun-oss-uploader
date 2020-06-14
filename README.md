@@ -75,7 +75,7 @@ Support `${<hashType>:hash:<digestType>:<length>}`, default:
 crypto.createHash('md5')
   .update(imageBuffer)
   .digest('hex')
-  .substr(0, maxLength)`
+  .substr(0, maxLength)
 
 ```
 
@@ -127,6 +127,11 @@ If no file is opened, `${relativeToVsRootPath}` will be parsed to `''`, . If no 
 
 If you want to debugger the project, just press `F5` to Run Extension. Then we can debugger the output of webpack dist.
 
+## WIP
+
+working in bucket explorer
+
+![bucketExplorerWIP](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/bucketExplorerWIP.png)
 
 ## TODO
 
@@ -140,6 +145,7 @@ If you want to debugger the project, just press `F5` to Run Extension. Then we c
 * [x] bundle by webpack/rollup
 * [x] enhance 'bucketFolder'
 * [x] delete image when hover GFM(github flavored markdown)
+* [ ] sidebar extension (e.g. show recent uploaded image)/ (should consider icon theme)
 * [ ] confirmation before deleting image
 * [ ] inquire before upload to check folder
 * [ ] decoupling logic by tapable
@@ -148,6 +154,5 @@ If you want to debugger the project, just press `F5` to Run Extension. Then we c
 * [ ] x-oss-process & vscode.CodeActionProvider
 * [ ] unit test
 * [ ] editor/title button to upload image
-* [ ] sidebar extension (e.g. show recent uploaded image)
 * [ ] drag image and drop to markdown. [Limit](https://github.com/microsoft/vscode/issues/5240)
 * [ ] add keyboard shortcut for explorer/context command. [Limit](https://github.com/microsoft/vscode/issues/3553)

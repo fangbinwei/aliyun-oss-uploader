@@ -19,7 +19,7 @@
     "upload image"
   ],
   "version": "1.2.0",
-  "icon": "images/logo.png",
+  "icon": "resources/logo.png",
   "engines": {
     "vscode": "^1.40.0"
   },
@@ -30,7 +30,8 @@
     "onCommand:elan.uploadFromClipboard",
     "onCommand:elan.uploadFromExplorer",
     "onCommand:elan.uploadFromExplorerContext",
-    "onLanguage:markdown"
+    "onLanguage:markdown",
+    "onView:bucketExplorer"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -46,8 +47,37 @@
       {
         "command": "elan.uploadFromExplorerContext",
         "title": "Elan: upload image"
-      }
+      },
+			{
+				"command": "elan.bucketExplorer.refreshRoot",
+				"title": "Refresh",
+				"icon": {
+					"light": "resources/light/refresh.svg",
+					"dark": "resources/dark/refresh.svg"
+				}
+			}
     ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "elanView",
+          "title": "Elan",
+          "icon": "resources/activitybar.svg"
+        }
+      ]
+    },
+    "views": {
+      "elanView": [
+        {
+          "id": "bucketExplorer",
+          "name": "Bucket"
+        },
+        {
+          "id": "recentlyUploadedExplorer",
+          "name": "Recently Uploaded(WIP)"
+        }
+      ]
+    },
     "menus": {
       "commandPalette": [
         {
@@ -61,6 +91,13 @@
           "command": "elan.uploadFromExplorerContext",
           "group": "5_cutcopypaste"
         }
+      ],
+      "view/title": [
+				{
+					"command": "elan.bucketExplorer.refreshRoot",
+					"when": "view == bucketExplorer",
+					"group": "navigation"
+				}
       ]
     },
     "configuration": {

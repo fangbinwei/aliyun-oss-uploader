@@ -10,9 +10,11 @@ interface DeleteResponse {
 export default class Uploader {
   private static cacheUploader: Uploader | null = null
   private client: OSS
+  public configuration: OSS.Options
   public expired: boolean
   constructor() {
-    this.client = new OSS(getOssConfiguration())
+    this.configuration = getOssConfiguration()
+    this.client = new OSS(this.configuration)
     this.expired = false
 
     // instance is expired if configuration update
@@ -48,5 +50,17 @@ export default class Uploader {
   ): Promise<DeleteResponse> {
     // FIXME: @types/ali-oss bug, I will create pr
     return this.client.delete(name, options) as any
+  }
+
+  async list(
+    query: OSS.ListObjectsQuery,
+    options?: OSS.RequestOptions
+  ): Promise<OSS.ListObjectResult> {
+    const defaultConfig = {
+      'max-keys': 100,
+      delimiter: '/'
+    }
+    query = Object.assign(defaultConfig, query)
+    return this.client.list(query, options)
   }
 }
