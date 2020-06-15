@@ -31,7 +31,7 @@ class HoverProvider implements vscode.HoverProvider {
 
     const delCommandUri = getCommandUriString(
       'Delete image',
-      'elan.delete',
+      'elan.deleteByHover',
       uri,
       document.fileName,
       keyRange
@@ -44,6 +44,7 @@ class HoverProvider implements vscode.HoverProvider {
     document: vscode.TextDocument,
     position: vscode.Position
   ): vscode.Range | undefined {
+    // TODO: get word range by link regexp?
     const keyRange = document.getWordRangeAtPosition(
       position,
       MARKDOWN_PATH_REG

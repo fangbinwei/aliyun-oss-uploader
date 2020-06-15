@@ -2,7 +2,7 @@ import vscode from 'vscode'
 import uploadFromClipboard from './commands/uploadFromClipboard'
 import uploadFromExplorer from './commands/uploadFromExplorer'
 import uploadFromExplorerContext from './commands/uploadFromExplorerContext'
-import hoverDelete from './commands/hoverDelete'
+import deleteByHover from './commands/deleteByHover'
 import hover from './language/hover'
 import Logger from './utils/log'
 import { BucketExplorerProvider } from './views/bucket'
@@ -29,7 +29,7 @@ export function activate(context: vscode.ExtensionContext): void {
       'elan.uploadFromExplorerContext',
       uploadFromExplorerContext
     ),
-    vscode.commands.registerCommand('elan.delete', hoverDelete),
+    vscode.commands.registerCommand('elan.deleteByHover', deleteByHover),
     vscode.languages.registerHoverProvider('markdown', hover),
     // TODO: command registry refactor
     vscode.commands.registerCommand('elan.bucketExplorer.refreshRoot', () =>
