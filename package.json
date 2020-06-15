@@ -48,6 +48,10 @@
         "command": "elan.uploadFromExplorerContext",
         "title": "Elan: upload image"
       },
+      {
+        "command": "elan.deleteByContext",
+        "title": "Delete"
+      },
 			{
 				"command": "elan.bucketExplorer.refreshRoot",
 				"title": "Refresh",
@@ -83,6 +87,10 @@
         {
           "command": "elan.uploadFromExplorerContext",
           "when": "false"
+        },
+        {
+          "command": "elan.deleteByContext",
+          "when": "false"
         }
       ],
       "explorer/context": [
@@ -98,6 +106,12 @@
 					"when": "view == bucketExplorer",
 					"group": "navigation"
 				}
+      ],
+      "view/item/context": [
+        {
+          "command": "elan.deleteByContext",
+          "when": "view == bucketExplorer && viewItem == object"
+        }
       ]
     },
     "configuration": {
