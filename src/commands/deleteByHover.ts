@@ -1,6 +1,7 @@
 import deleteUri from '@/uploader/deleteUri'
 import { getActiveMd } from '@/utils/index'
 import vscode from 'vscode'
+import { ext } from '@/extensionVariables'
 
 interface PositionToJSON {
   readonly line: number
@@ -23,6 +24,7 @@ export default async function hoverDelete(
     end.character
   )
   deleteGFM(fileName, vsRange)
+  if (ext.bucketExplorerTreeViewVisible) ext.bucketExplorer.refresh()
 }
 
 function deleteGFM(fileName: string, range: vscode.Range): void {

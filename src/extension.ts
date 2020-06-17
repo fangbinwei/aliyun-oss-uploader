@@ -3,11 +3,12 @@ import uploadFromClipboard from './commands/uploadFromClipboard'
 import uploadFromExplorer from './commands/uploadFromExplorer'
 import uploadFromExplorerContext from './commands/uploadFromExplorerContext'
 import deleteByHover from './commands/deleteByHover'
-import deleteByContext from './commands/deleteByContext'
 import hover from './language/hover'
 import Logger from './utils/log'
 import { BucketExplorerProvider } from './views/bucket'
 import { ext } from '@/extensionVariables'
+import { getOSSConfiguration } from '@/utils/index'
+import { registerBucket } from './views/registerBucket'
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -31,19 +32,13 @@ export function activate(context: vscode.ExtensionContext): void {
       uploadFromExplorerContext
     ),
     vscode.commands.registerCommand('elan.deleteByHover', deleteByHover),
-    vscode.commands.registerCommand('elan.deleteByContext', deleteByContext),
-    vscode.languages.registerHoverProvider('markdown', hover),
+    vscode.languages.registerHoverProvider('markdown', hover)
     // TODO: command registry refactor
-    vscode.commands.registerCommand('elan.bucketExplorer.refreshRoot', () =>
-      ext.bucketExplorer.refresh()
-    )
   ]
-
-  ext.bucketExplorerTreeView = vscode.window.createTreeView('bucketExplorer', {
-    treeDataProvider: ext.bucketExplorer
-  })
-  context.subscriptions.push(ext.bucketExplorerTreeView)
   context.subscriptions.push(...disposable)
+
+  // views/bucket
+  registerBucket(context)
 }
 
 // this method is called when your extension is deactivated
@@ -52,4 +47,8 @@ export function deactivate(): void {}
 
 function initializeExtensionVariables(ctx: vscode.ExtensionContext): void {
   ext.context = ctx
+  ext.OSSConfiguration = getOSSConfiguration()
+  vscode.workspace.onDidChangeConfiguration(() => {
+    ext.OSSConfiguration = getOSSConfiguration()
+  })
 }

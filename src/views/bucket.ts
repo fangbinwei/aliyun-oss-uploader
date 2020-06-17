@@ -1,8 +1,9 @@
 import vscode from 'vscode'
 import Uploader from '@/uploader/index'
 import { removeTrailingSlash } from '@/utils/index'
-import { CONTEXT_VALUE, TIP_FAILED_INIT } from '@/utils/constant'
+import { CONTEXT_VALUE, TIP_FAILED_INIT, SUPPORT_EXT } from '@/utils/constant'
 import { getThemedIconPath } from './iconPath'
+import path from 'path'
 
 export class BucketExplorerProvider
   implements vscode.TreeDataProvider<OSSObjectTreeItem> {
@@ -68,7 +69,7 @@ export class BucketExplorerProvider
     prefix = prefix === this.uploader.configuration.bucket ? '' : prefix + '/'
     const res = await this.uploader.list({
       prefix,
-      'max-keys': 100
+      'max-keys': 100 //TODO: need config by user, need use 'maker' when exceed 1000
     })
     // we should create an empty 'folder' sometimes
     // this 'empty object' is the 'parent folder' of these objects
@@ -87,7 +88,11 @@ export class BucketExplorerProvider
       parentFolderIsObject: emptyObjectIndex !== null,
       total: res.prefixes.length + res.objects.length
     }
-    const _objects = res.objects.map((p, index) => {
+    //TODO: config by user?
+    const filteredObject = res.objects.filter((o) => {
+      return SUPPORT_EXT.includes(path.extname(o.name).substr(1))
+    })
+    const _objects = filteredObject.map((p, index) => {
       const isEmpty = index === emptyObjectIndex
       return new OSSObjectTreeItem({
         ...commonOptions,

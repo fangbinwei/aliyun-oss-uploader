@@ -1,7 +1,7 @@
 import vscode from 'vscode'
 import OSS from 'ali-oss'
 import Logger from '@/utils/log'
-import { getOssConfiguration } from '@/utils/index'
+import { getOSSConfiguration } from '@/utils/index'
 
 interface DeleteResponse {
   res: OSS.NormalSuccessResponse
@@ -13,7 +13,7 @@ export default class Uploader {
   public configuration: OSS.Options
   public expired: boolean
   constructor() {
-    this.configuration = getOssConfiguration()
+    this.configuration = getOSSConfiguration()
     this.client = new OSS(this.configuration)
     this.expired = false
 

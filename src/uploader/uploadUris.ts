@@ -23,7 +23,10 @@ interface WrapError extends Error {
   imageName: string
 }
 
-export default async function uploadUris(uris: vscode.Uri[]): Promise<void> {
+export default async function uploadUris(
+  uris: vscode.Uri[],
+  bucketFolder?: string
+): Promise<void> {
   const uploader = Uploader.get()
   // init OSS instance failed
   if (!uploader) return
@@ -51,8 +54,11 @@ export default async function uploadUris(uris: vscode.Uri[]): Promise<void> {
     templateStore.set('imageUri', uri)
 
     const uploadName = templateStore.transform('uploadName')
-    const bucketFolder = templateStore.transform('bucketFolder')
+    const bucketFolderFromConfiguration = templateStore.transform(
+      'bucketFolder'
+    )
 
+    if (bucketFolder == null) bucketFolder = bucketFolderFromConfiguration
     const putName = `${bucketFolder || ''}${uploadName}`
     const u = uploader.put(putName, uri.fsPath)
     u.then((putObjectResult) => {

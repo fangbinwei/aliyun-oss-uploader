@@ -50,7 +50,7 @@ export function isAliyunOssUri(uri: string): boolean {
 
     if (!['http', 'https'].includes(vsUri.scheme)) return false
 
-    const { bucket, region } = getOssConfiguration()
+    const { bucket, region } = getOSSConfiguration()
     const [_bucket, _region] = vsUri.authority.split('.')
     if (bucket !== _bucket) return false
     if (region !== _region) return false
@@ -72,7 +72,7 @@ export function removeTrailingSlash(p: string): string {
   return p.replace(/\/+$/, '')
 }
 
-export function getOssConfiguration(): OSS.Options {
+export function getOSSConfiguration(): OSS.Options {
   const config = vscode.workspace.getConfiguration('elan')
   const aliyunConfig = config.get<OSS.Options>('aliyun', {
     accessKeyId: '',

@@ -49,8 +49,12 @@
         "title": "Elan: upload image"
       },
       {
-        "command": "elan.deleteByContext",
+        "command": "elan.bucketExplorer.delete",
         "title": "Delete"
+      },
+      {
+        "command": "elan.bucketExplorer.upload",
+        "title": "Upload"
       },
 			{
 				"command": "elan.bucketExplorer.refreshRoot",
@@ -89,7 +93,11 @@
           "when": "false"
         },
         {
-          "command": "elan.deleteByContext",
+          "command": "elan.bucketExplorer.delete",
+          "when": "false"
+        },
+        {
+          "command": "elan.bucketExplorer.upload",
           "when": "false"
         }
       ],
@@ -109,8 +117,14 @@
       ],
       "view/item/context": [
         {
-          "command": "elan.deleteByContext",
-          "when": "view == bucketExplorer && viewItem == object"
+          "command": "elan.bucketExplorer.delete",
+          "when": "view == bucketExplorer && viewItem == object",
+          "group": "7_modification"
+        },
+        {
+          "command": "elan.bucketExplorer.upload",
+          "when": "view == bucketExplorer && viewItem == folder || view == bucketExplorer &&viewItem == bucket",
+          "group": "5_cutcopypaste"
         }
       ]
     },
