@@ -3,6 +3,7 @@ import { ext } from '@/extensionVariables'
 import { deleteFromBucketExplorerContext } from '@/commands/bucketExplorer/deleteFromContext'
 import { uploadFromBucketExplorerContext } from '@/commands/bucketExplorer/uploadFromContext'
 import { uploadFromBucketExplorerClipboard } from '@/commands/bucketExplorer/uploadFromClipboard'
+import { copyLinkFromBucketExplorer } from '@/commands/bucketExplorer/copyLink'
 import { CommandContext } from '@/constant'
 
 export function registerBucket(context: vscode.ExtensionContext): void {
@@ -28,6 +29,10 @@ export function registerBucket(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand(
       uploadFromBucketExplorerClipboard.command,
       uploadFromBucketExplorerClipboard
+    ),
+    vscode.commands.registerCommand(
+      copyLinkFromBucketExplorer.command,
+      copyLinkFromBucketExplorer
     )
   ]
   context.subscriptions.push(ext.bucketExplorerTreeView)

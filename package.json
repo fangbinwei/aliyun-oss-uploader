@@ -67,7 +67,15 @@
 					"light": "resources/light/refresh.svg",
 					"dark": "resources/dark/refresh.svg"
 				}
-			}
+      },
+      {
+        "command": "elan.bucketExplorer.copyLink",
+        "title": "Copy Link",
+        "icon": {
+					"light": "resources/light/link.svg",
+					"dark": "resources/dark/link.svg"
+        }
+      }
     ],
     "viewsContainers": {
       "activitybar": [
@@ -107,6 +115,10 @@
         {
           "command": "elan.bucketExplorer.uploadFromClipboard",
           "when": "false"
+        },
+        {
+          "command": "elan.bucketExplorer.copyLink",
+          "when": "false"
         }
       ],
       "explorer/context": [
@@ -128,6 +140,11 @@
           "command": "elan.bucketExplorer.deleteFromContext",
           "when": "view == bucketExplorer && viewItem == object",
           "group": "7_modification"
+        },
+        {
+          "command": "elan.bucketExplorer.copyLink",
+          "when": "view == bucketExplorer && viewItem == object",
+          "group": "inline"
         },
         {
           "command": "elan.bucketExplorer.uploadFromContext",
