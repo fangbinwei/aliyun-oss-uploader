@@ -1,7 +1,7 @@
 import vscode from 'vscode'
 import { ext } from '@/extensionVariables'
-import deleteFromBucketExplorerContext from '@/commands/deleteFromBucketExplorerContext'
-import uploadFromBucketExplorerContext from '@/commands/uploadFromBucketExplorerContext'
+import deleteFromBucketExplorerContext from '@/commands/bucketExplorer/deleteFromContext'
+import uploadFromBucketExplorerContext from '@/commands/bucketExplorer/uploadFromContext'
 import { uploadFromBucketExplorerClipboard } from '@/commands/bucketExplorer/uploadFromClipboard'
 
 export function registerBucket(context: vscode.ExtensionContext): void {
