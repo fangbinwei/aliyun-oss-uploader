@@ -2,6 +2,7 @@ import vscode from 'vscode'
 import OSS from 'ali-oss'
 import Logger from '@/utils/log'
 import { getOSSConfiguration } from '@/utils/index'
+import { ext } from '@/extensionVariables'
 
 interface DeleteResponse {
   res: OSS.NormalSuccessResponse
@@ -18,9 +19,11 @@ export default class Uploader {
     this.expired = false
 
     // instance is expired if configuration update
-    vscode.workspace.onDidChangeConfiguration(() => {
-      this.expired = true
-    })
+    ext.context.subscriptions.push(
+      vscode.workspace.onDidChangeConfiguration(() => {
+        this.expired = true
+      })
+    )
   }
   // singleton
   static get(): Uploader | null {

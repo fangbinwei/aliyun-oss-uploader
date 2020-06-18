@@ -10,7 +10,7 @@ export function registerBucket(context: vscode.ExtensionContext): void {
     // canSelectMany: true,
     showCollapseAll: true
   })
-  const disposable = [
+  const registerCommands = [
     vscode.commands.registerCommand(
       'elan.bucketExplorer.upload',
       uploadFromBucketExplorerContext
@@ -24,8 +24,10 @@ export function registerBucket(context: vscode.ExtensionContext): void {
     )
   ]
   context.subscriptions.push(ext.bucketExplorerTreeView)
-  context.subscriptions.push(...disposable)
-  ext.bucketExplorerTreeView.onDidChangeVisibility(({ visible }) => {
-    ext.bucketExplorerTreeViewVisible = visible
-  })
+  context.subscriptions.push(...registerCommands)
+  context.subscriptions.push(
+    ext.bucketExplorerTreeView.onDidChangeVisibility(({ visible }) => {
+      ext.bucketExplorerTreeViewVisible = visible
+    })
+  )
 }

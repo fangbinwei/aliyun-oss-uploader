@@ -18,7 +18,7 @@ export function activate(context: vscode.ExtensionContext): void {
   Logger.channel = vscode.window.createOutputChannel('Elan')
   ext.bucketExplorer = new BucketExplorerProvider()
 
-  const disposable = [
+  const registerCommands = [
     vscode.commands.registerCommand(
       'elan.uploadFromClipboard',
       uploadFromClipboard
@@ -35,7 +35,7 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.languages.registerHoverProvider('markdown', hover)
     // TODO: command registry refactor
   ]
-  context.subscriptions.push(...disposable)
+  context.subscriptions.push(...registerCommands)
 
   // views/bucket
   registerBucket(context)
@@ -48,7 +48,9 @@ export function deactivate(): void {}
 function initializeExtensionVariables(ctx: vscode.ExtensionContext): void {
   ext.context = ctx
   ext.OSSConfiguration = getOSSConfiguration()
-  vscode.workspace.onDidChangeConfiguration(() => {
-    ext.OSSConfiguration = getOSSConfiguration()
-  })
+  ctx.subscriptions.push(
+    vscode.workspace.onDidChangeConfiguration(() => {
+      ext.OSSConfiguration = getOSSConfiguration()
+    })
+  )
 }
