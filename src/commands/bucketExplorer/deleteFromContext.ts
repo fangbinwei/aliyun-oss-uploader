@@ -2,7 +2,7 @@ import deleteUri from '@/uploader/deleteUri'
 import vscode from 'vscode'
 import { OSSObjectTreeItem } from '@/views/bucket'
 import { ext } from '@/extensionVariables'
-import { CommandContext } from '@/utils/constant'
+import { CommandContext } from '@/constant'
 
 async function deleteFromBucketExplorerContext(
   treeItem: OSSObjectTreeItem

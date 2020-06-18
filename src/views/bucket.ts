@@ -1,7 +1,7 @@
 import vscode from 'vscode'
 import Uploader from '@/uploader/index'
 import { removeTrailingSlash } from '@/utils/index'
-import { CONTEXT_VALUE, TIP_FAILED_INIT, SUPPORT_EXT } from '@/utils/constant'
+import { CONTEXT_VALUE, TIP_FAILED_INIT, SUPPORT_EXT } from '@/constant'
 import { getThemedIconPath } from './iconPath'
 import path from 'path'
 

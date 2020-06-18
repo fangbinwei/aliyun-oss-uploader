@@ -4,7 +4,7 @@ import crypto from 'crypto'
 import fs from 'fs'
 import Logger from './log'
 import OSS from 'ali-oss'
-import { SUPPORT_EXT } from '@/utils/constant'
+import { SUPPORT_EXT } from '@/constant'
 
 export function isSubDirectory(parent: string, dir: string): boolean {
   const relative = path.relative(parent, dir)

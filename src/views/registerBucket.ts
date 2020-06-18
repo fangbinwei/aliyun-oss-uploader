@@ -3,7 +3,7 @@ import { ext } from '@/extensionVariables'
 import { deleteFromBucketExplorerContext } from '@/commands/bucketExplorer/deleteFromContext'
 import { uploadFromBucketExplorerContext } from '@/commands/bucketExplorer/uploadFromContext'
 import { uploadFromBucketExplorerClipboard } from '@/commands/bucketExplorer/uploadFromClipboard'
-import { CommandContext } from '@/utils/constant'
+import { CommandContext } from '@/constant'
 
 export function registerBucket(context: vscode.ExtensionContext): void {
   ext.bucketExplorerTreeView = vscode.window.createTreeView('bucketExplorer', {

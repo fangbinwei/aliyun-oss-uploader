@@ -1,6 +1,6 @@
 import vscode, { Hover } from 'vscode'
 import { isAliyunOssUri } from '@/utils/index'
-import { MARKDOWN_PATH_REG } from '@/utils/constant'
+import { MARKDOWN_PATH_REG } from '@/constant'
 
 function getCommandUriString(
   text: string,

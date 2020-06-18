@@ -1,7 +1,7 @@
 import { OSSObjectTreeItem } from '@/views/bucket'
 import { ext } from '@/extensionVariables'
 import vscode from 'vscode'
-import { CommandContext } from '@/utils/constant'
+import { CommandContext } from '@/constant'
 import { showFolderNameInputBox } from '@/utils/index'
 
 async function uploadFromBucketExplorerClipboard(

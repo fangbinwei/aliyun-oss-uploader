@@ -1,9 +1,9 @@
 import { OSSObjectTreeItem } from '@/views/bucket'
 import { ext } from '@/extensionVariables'
-import { SUPPORT_EXT } from '@/utils/constant'
+import { SUPPORT_EXT } from '@/constant'
 import uploadUris from '@/uploader/uploadUris'
 import vscode from 'vscode'
-import { CommandContext } from '@/utils/constant'
+import { CommandContext } from '@/constant'
 
 async function uploadFromBucketExplorerContext(
   selected: OSSObjectTreeItem
