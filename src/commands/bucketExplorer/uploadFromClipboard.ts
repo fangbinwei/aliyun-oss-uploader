@@ -20,7 +20,7 @@ async function uploadFromBucketExplorerClipboard(
 }
 // eslint-disable-next-line
 namespace uploadFromBucketExplorerClipboard {
-  export const Command = CommandContext.BUCKET_EXPLORER_UPLOAD_CLIPBOARD
+  export const command = CommandContext.BUCKET_EXPLORER_UPLOAD_CLIPBOARD
 }
 
 export { uploadFromBucketExplorerClipboard }

@@ -3,8 +3,9 @@ import { ext } from '@/extensionVariables'
 import { SUPPORT_EXT } from '@/utils/constant'
 import uploadUris from '@/uploader/uploadUris'
 import vscode from 'vscode'
+import { CommandContext } from '@/utils/constant'
 
-export default async function uploadFromBucketExplorerContext(
+async function uploadFromBucketExplorerContext(
   selected: OSSObjectTreeItem
 ): Promise<void> {
   const folderPlaceholder =
@@ -34,3 +35,10 @@ export default async function uploadFromBucketExplorerContext(
 
   ext.bucketExplorer.refresh()
 }
+
+// eslint-disable-next-line
+namespace uploadFromBucketExplorerContext {
+  export const command = CommandContext.BUCKET_EXPLORER_UPLOAD_CONTEXT
+}
+
+export { uploadFromBucketExplorerContext }

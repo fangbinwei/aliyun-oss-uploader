@@ -1,8 +1,9 @@
 import vscode from 'vscode'
 import { ext } from '@/extensionVariables'
-import deleteFromBucketExplorerContext from '@/commands/bucketExplorer/deleteFromContext'
-import uploadFromBucketExplorerContext from '@/commands/bucketExplorer/uploadFromContext'
+import { deleteFromBucketExplorerContext } from '@/commands/bucketExplorer/deleteFromContext'
+import { uploadFromBucketExplorerContext } from '@/commands/bucketExplorer/uploadFromContext'
 import { uploadFromBucketExplorerClipboard } from '@/commands/bucketExplorer/uploadFromClipboard'
+import { CommandContext } from '@/utils/constant'
 
 export function registerBucket(context: vscode.ExtensionContext): void {
   ext.bucketExplorerTreeView = vscode.window.createTreeView('bucketExplorer', {
@@ -13,18 +14,19 @@ export function registerBucket(context: vscode.ExtensionContext): void {
   })
   const registerCommands = [
     vscode.commands.registerCommand(
-      'elan.bucketExplorer.upload',
+      uploadFromBucketExplorerContext.command,
       uploadFromBucketExplorerContext
     ),
-    vscode.commands.registerCommand('elan.bucketExplorer.refreshRoot', () =>
-      ext.bucketExplorer.refresh()
+    vscode.commands.registerCommand(
+      CommandContext.BUCKET_EXPLORER_REFRESH_ROOT,
+      () => ext.bucketExplorer.refresh()
     ),
     vscode.commands.registerCommand(
-      'elan.bucketExplorer.delete',
+      deleteFromBucketExplorerContext.command,
       deleteFromBucketExplorerContext
     ),
     vscode.commands.registerCommand(
-      uploadFromBucketExplorerClipboard.Command,
+      uploadFromBucketExplorerClipboard.command,
       uploadFromBucketExplorerClipboard
     )
   ]

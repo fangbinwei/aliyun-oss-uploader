@@ -1,5 +1,8 @@
 export enum CommandContext {
-  BUCKET_EXPLORER_UPLOAD_CLIPBOARD = 'elan.bucketExplorer.uploadFromClipboard'
+  BUCKET_EXPLORER_UPLOAD_CLIPBOARD = 'elan.bucketExplorer.uploadFromClipboard',
+  BUCKET_EXPLORER_UPLOAD_CONTEXT = 'elan.bucketExplorer.uploadFromContext',
+  BUCKET_EXPLORER_DELETE_CONTEXT = 'elan.bucketExplorer.deleteFromContext',
+  BUCKET_EXPLORER_REFRESH_ROOT = 'elan.bucketExplorer.refreshRoot'
 }
 export const SUPPORT_EXT: ReadonlyArray<string> = [
   'png',
