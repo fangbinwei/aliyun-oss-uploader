@@ -1,3 +1,6 @@
+export enum CommandContext {
+  BUCKET_EXPLORER_UPLOAD_CLIPBOARD = 'elan.bucketExplorer.uploadFromClipboard'
+}
 export const SUPPORT_EXT: ReadonlyArray<string> = [
   'png',
   'jpg',

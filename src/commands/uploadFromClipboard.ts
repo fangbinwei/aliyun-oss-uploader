@@ -12,7 +12,9 @@ interface ClipboardImage {
   data: string
 }
 
-export default async function uploadImage(): Promise<void> {
+export default async function uploadImage(
+  bucketFolder?: string
+): Promise<void> {
   const targetPath = path.resolve(
     os.tmpdir(),
     format(new Date(), 'yyyy-MM-dd-HH-mm-ss') + '.png'
@@ -23,7 +25,7 @@ export default async function uploadImage(): Promise<void> {
     Logger.showErrorMessage('The clipboard does not contain image data.')
     return
   }
-  await uploadUris([vscode.Uri.file(targetPath)])
+  await uploadUris([vscode.Uri.file(targetPath)], bucketFolder)
 }
 
 export async function saveClipboardImageToFile(

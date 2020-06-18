@@ -116,3 +116,17 @@ export function getProgress(title = 'Uploading image'): Progress {
     progressReject
   }
 }
+
+export async function showFolderNameInputBox(
+  folderPlaceholder: string
+): Promise<string | undefined> {
+  return vscode.window.showInputBox({
+    value: folderPlaceholder,
+    placeHolder: `Enter folder name. e.g., 'example/folder/name/', '' means root folder`,
+    validateInput: (text) => {
+      text = text.trim()
+      if (text === '') return null
+      return text.endsWith('/') ? null : `Please end with '/'`
+    }
+  })
+}

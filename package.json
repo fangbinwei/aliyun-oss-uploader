@@ -56,6 +56,10 @@
         "command": "elan.bucketExplorer.upload",
         "title": "Upload"
       },
+      {
+        "command": "elan.bucketExplorer.uploadFromClipboard",
+        "title": "Upload from Clipboard"
+      },
 			{
 				"command": "elan.bucketExplorer.refreshRoot",
 				"title": "Refresh",
@@ -99,6 +103,10 @@
         {
           "command": "elan.bucketExplorer.upload",
           "when": "false"
+        },
+        {
+          "command": "elan.bucketExplorer.uploadFromClipboard",
+          "when": "false"
         }
       ],
       "explorer/context": [
@@ -123,6 +131,11 @@
         },
         {
           "command": "elan.bucketExplorer.upload",
+          "when": "view == bucketExplorer && viewItem == folder || view == bucketExplorer &&viewItem == bucket",
+          "group": "5_cutcopypaste"
+        },
+        {
+          "command": "elan.bucketExplorer.uploadFromClipboard",
           "when": "view == bucketExplorer && viewItem == folder || view == bucketExplorer &&viewItem == bucket",
           "group": "5_cutcopypaste"
         }

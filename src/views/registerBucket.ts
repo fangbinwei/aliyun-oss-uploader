@@ -2,6 +2,7 @@ import vscode from 'vscode'
 import { ext } from '@/extensionVariables'
 import deleteFromBucketExplorerContext from '@/commands/deleteFromBucketExplorerContext'
 import uploadFromBucketExplorerContext from '@/commands/uploadFromBucketExplorerContext'
+import { uploadFromBucketExplorerClipboard } from '@/commands/bucketExplorer/uploadFromClipboard'
 
 export function registerBucket(context: vscode.ExtensionContext): void {
   ext.bucketExplorerTreeView = vscode.window.createTreeView('bucketExplorer', {
@@ -21,6 +22,10 @@ export function registerBucket(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand(
       'elan.bucketExplorer.delete',
       deleteFromBucketExplorerContext
+    ),
+    vscode.commands.registerCommand(
+      uploadFromBucketExplorerClipboard.Command,
+      uploadFromBucketExplorerClipboard
     )
   ]
   context.subscriptions.push(ext.bucketExplorerTreeView)
