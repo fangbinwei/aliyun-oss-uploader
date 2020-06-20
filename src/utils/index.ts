@@ -121,12 +121,28 @@ export async function showFolderNameInputBox(
   folderPlaceholder: string
 ): Promise<string | undefined> {
   return vscode.window.showInputBox({
-    value: folderPlaceholder,
+    value: removeLeadingSlash(folderPlaceholder),
     placeHolder: `Enter folder name. e.g., 'example/folder/name/', '' means root folder`,
     validateInput: (text) => {
       text = text.trim()
       if (text === '') return null
-      return text.endsWith('/') ? null : `Please end with '/'`
+      if (text[0] === '/') return `Please do not start with '/'.`
+      if (!text.endsWith('/')) return `Please end with '/'`
+      return null
+    }
+  })
+}
+
+export async function showObjectNameInputBox(
+  objectNamePlaceholder: string
+): Promise<string | undefined> {
+  return vscode.window.showInputBox({
+    value: removeLeadingSlash(objectNamePlaceholder),
+    placeHolder: `Enter target name. e.g., 'example/folder/name/target.jpg'`,
+    validateInput: (text) => {
+      text = text.trim()
+      if (text[0] === '/') return `Please do not start with '/'.`
+      if (text === '') return `Please enter target name.`
     }
   })
 }

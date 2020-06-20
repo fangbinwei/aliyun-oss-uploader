@@ -4,24 +4,16 @@ import { ext } from '@/extensionVariables'
 import { CommandContext } from '@/constant'
 import { copyUri } from '@/uploader/copyUri'
 import Logger from '@/utils/log'
-import { removeLeadingSlash } from '@/utils'
+import { showObjectNameInputBox } from '@/utils'
 
 async function copyFromBucketExplorerContext(
   treeItem: OSSObjectTreeItem
 ): Promise<void> {
   const sourceUri = vscode.Uri.parse(treeItem.url)
-  const targetName = await vscode.window.showInputBox({
-    value: removeLeadingSlash(sourceUri.path),
-    placeHolder: `Enter target name. e.g., 'example/folder/name/target.jpg'`,
-    validateInput: (text) => {
-      text = text.trim()
-      if (text[0] === '/') return `Please do not start with '/'.`
-      if (text === '') return `Please enter target name.`
-    }
-  })
+  const targetName = await showObjectNameInputBox(sourceUri.path)
   if (!targetName) return
   try {
-    await copyUri(vscode.Uri.file(targetName), sourceUri)
+    await copyUri(vscode.Uri.file(targetName.trim()), sourceUri)
   } catch {
     Logger.log('catch function copyUri error')
   }

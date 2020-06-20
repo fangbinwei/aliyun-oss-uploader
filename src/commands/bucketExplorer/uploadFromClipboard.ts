@@ -14,7 +14,10 @@ async function uploadFromBucketExplorerClipboard(
   const folder = await showFolderNameInputBox(folderPlaceholder)
   if (folder === undefined) return
 
-  await vscode.commands.executeCommand('elan.uploadFromClipboard', folder)
+  await vscode.commands.executeCommand(
+    'elan.uploadFromClipboard',
+    folder.trim()
+  )
 
   ext.bucketExplorer.refresh()
 }

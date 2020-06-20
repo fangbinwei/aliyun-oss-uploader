@@ -4,6 +4,7 @@ import { SUPPORT_EXT } from '@/constant'
 import uploadUris from '@/uploader/uploadUris'
 import vscode from 'vscode'
 import { CommandContext } from '@/constant'
+import { showFolderNameInputBox } from '@/utils/index'
 
 async function uploadFromBucketExplorerContext(
   selected: OSSObjectTreeItem
@@ -12,15 +13,8 @@ async function uploadFromBucketExplorerContext(
     selected.label === ext.OSSConfiguration.bucket
       ? ''
       : selected.prefix + selected.label + '/'
-  const folder = await vscode.window.showInputBox({
-    value: folderPlaceholder,
-    placeHolder: `Enter folder name. e.g., 'example/folder/name/', '' means root folder`,
-    validateInput: (text) => {
-      text = text.trim()
-      if (text === '') return null
-      return text.endsWith('/') ? null : `Please end with '/'`
-    }
-  })
+
+  const folder = await showFolderNameInputBox(folderPlaceholder)
   if (folder === undefined) return
 
   const images = await vscode.window.showOpenDialog({
