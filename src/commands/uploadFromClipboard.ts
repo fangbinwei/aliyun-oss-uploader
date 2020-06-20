@@ -12,7 +12,7 @@ interface ClipboardImage {
   data: string
 }
 
-export default async function uploadImage(
+export async function uploadFromClipboard(
   bucketFolder?: string
 ): Promise<void> {
   const targetPath = path.resolve(
