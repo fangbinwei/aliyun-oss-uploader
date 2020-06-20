@@ -1,5 +1,5 @@
 import vscode from 'vscode'
-import uploadUris from '@/uploader/uploadUris'
+import { uploadUris } from '@/uploader/uploadUris'
 
 // TODO: compatible with Bucket Folder > ${relativeToVsRootPath} even no active file
 export default async function uploadFromExplorerContext(

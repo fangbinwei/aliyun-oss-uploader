@@ -23,7 +23,7 @@ interface WrapError extends Error {
   imageName: string
 }
 
-export default async function uploadUris(
+export async function uploadUris(
   uris: vscode.Uri[],
   bucketFolder?: string
 ): Promise<void> {

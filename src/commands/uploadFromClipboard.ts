@@ -3,7 +3,7 @@ import path from 'path'
 import fs from 'fs'
 import execa from 'execa'
 import os from 'os'
-import uploadUris from '@/uploader/uploadUris'
+import { uploadUris } from '@/uploader/uploadUris'
 import vscode from 'vscode'
 import { format } from 'date-fns'
 

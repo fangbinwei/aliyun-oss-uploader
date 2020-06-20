@@ -3,7 +3,7 @@ import { getProgress, removeLeadingSlash } from '@/utils'
 import vscode from 'vscode'
 import Logger from '@/utils/log'
 
-export default async function deleteUri(uri: vscode.Uri): Promise<void> {
+export async function deleteUri(uri: vscode.Uri): Promise<void> {
   const uploader = Uploader.get()
   // init OSS instance failed
   if (!uploader) return

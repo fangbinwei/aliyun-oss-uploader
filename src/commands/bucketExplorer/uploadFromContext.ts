@@ -1,7 +1,7 @@
 import { OSSObjectTreeItem } from '@/views/bucket'
 import { ext } from '@/extensionVariables'
 import { SUPPORT_EXT } from '@/constant'
-import uploadUris from '@/uploader/uploadUris'
+import { uploadUris } from '@/uploader/uploadUris'
 import vscode from 'vscode'
 import { CommandContext } from '@/constant'
 import { showFolderNameInputBox } from '@/utils/index'

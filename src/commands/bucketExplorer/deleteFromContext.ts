@@ -1,4 +1,4 @@
-import deleteUri from '@/uploader/deleteUri'
+import { deleteUri } from '@/uploader/deleteUri'
 import vscode from 'vscode'
 import { OSSObjectTreeItem } from '@/views/bucket'
 import { ext } from '@/extensionVariables'
