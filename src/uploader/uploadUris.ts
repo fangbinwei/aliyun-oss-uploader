@@ -32,7 +32,7 @@ export async function uploadUris(
   if (!uploader) return
 
   const { progress, progressResolve } = getProgress(
-    `Uploading ${uris.length} image(s)`
+    `Uploading ${uris.length} object(s)`
   )
   const clipboard: string[] = []
 
@@ -95,11 +95,11 @@ export async function uploadUris(
     }, 1000)
   } else {
     progress.report({
-      message: `${uris.length - rejects.length} images uploaded.`
+      message: `${uris.length - rejects.length} objects uploaded.`
     })
     setTimeout(() => {
       progressResolve()
-      Logger.showErrorMessage(`Failed to upload ${rejects.length} image(s).`)
+      Logger.showErrorMessage(`Failed to upload ${rejects.length} object(s).`)
 
       // show first error message
       Logger.showErrorMessage(

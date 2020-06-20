@@ -93,7 +93,7 @@ export interface Progress {
   progressReject: (value?: unknown) => void
 }
 
-export function getProgress(title = 'Uploading image'): Progress {
+export function getProgress(title = 'Uploading object'): Progress {
   let progressResolve, progressReject, progress
   vscode.window.withProgress(
     {

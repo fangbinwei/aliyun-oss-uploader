@@ -20,7 +20,7 @@ export async function copyUri(
   let progress: Progress['progress'] | undefined
   let progressResolve: Progress['progressResolve'] | undefined
   if (showProgress) {
-    const p = getProgress(`Copying image`)
+    const p = getProgress(`Copying object`)
     progress = p.progress
     progressResolve = p.progressResolve
   }
@@ -40,7 +40,7 @@ export async function copyUri(
   } catch (err) {
     progressResolve && progressResolve()
     Logger.showErrorMessage(
-      `Failed to copy image. See output channel for more details`
+      `Failed to copy object. See output channel for more details`
     )
     Logger.log(
       `Failed: copy from ${sourceName} to ${targetName}.` +
