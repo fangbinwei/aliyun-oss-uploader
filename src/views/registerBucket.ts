@@ -5,6 +5,7 @@ import { uploadFromBucketExplorerContext } from '@/commands/bucketExplorer/uploa
 import { uploadFromBucketExplorerClipboard } from '@/commands/bucketExplorer/uploadFromClipboard'
 import { copyLinkFromBucketExplorer } from '@/commands/bucketExplorer/copyLink'
 import { copyFromBucketExplorerContext } from '@/commands/bucketExplorer/copyFromContext'
+import { moveFromBucketExplorerContext } from '@/commands/bucketExplorer/moveFromContext'
 import { CommandContext } from '@/constant'
 
 export function registerBucket(context: vscode.ExtensionContext): void {
@@ -34,6 +35,10 @@ export function registerBucket(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand(
       copyLinkFromBucketExplorer.command,
       copyLinkFromBucketExplorer
+    ),
+    vscode.commands.registerCommand(
+      moveFromBucketExplorerContext.command,
+      moveFromBucketExplorerContext
     ),
     vscode.commands.registerCommand(
       copyFromBucketExplorerContext.command,

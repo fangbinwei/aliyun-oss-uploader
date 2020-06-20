@@ -3,6 +3,7 @@ export enum CommandContext {
   BUCKET_EXPLORER_UPLOAD_CONTEXT = 'elan.bucketExplorer.uploadFromContext',
   BUCKET_EXPLORER_DELETE_CONTEXT = 'elan.bucketExplorer.deleteFromContext',
   BUCKET_EXPLORER_COPY_CONTEXT = 'elan.bucketExplorer.copyFromContext',
+  BUCKET_EXPLORER_MOVE_CONTEXT = 'elan.bucketExplorer.moveFromContext',
   BUCKET_EXPLORER_REFRESH_ROOT = 'elan.bucketExplorer.refreshRoot',
   BUCKET_EXPLORER_COPY_LINK = 'elan.bucketExplorer.copyLink'
 }

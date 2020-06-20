@@ -77,6 +77,10 @@
         }
       },
       {
+        "command": "elan.bucketExplorer.moveFromContext",
+        "title": "Move/Rename to"
+      },
+      {
         "command": "elan.bucketExplorer.copyFromContext",
         "title": "Copy to"
       }
@@ -125,6 +129,10 @@
           "when": "false"
         },
         {
+          "command": "elan.bucketExplorer.moveFromContext",
+          "when": "false"
+        },
+        {
           "command": "elan.bucketExplorer.copyFromContext",
           "when": "false"
         }
@@ -163,6 +171,11 @@
           "command": "elan.bucketExplorer.uploadFromClipboard",
           "when": "view == bucketExplorer && viewItem == folder || view == bucketExplorer &&viewItem == bucket",
           "group": "upload@1"
+        },
+        {
+          "command": "elan.bucketExplorer.moveFromContext",
+          "when": "view == bucketExplorer && viewItem == object",
+          "group": "5_cutcopypaste"
         },
         {
           "command": "elan.bucketExplorer.copyFromContext",

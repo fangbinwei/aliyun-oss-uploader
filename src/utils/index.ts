@@ -134,7 +134,8 @@ export async function showFolderNameInputBox(
 }
 
 export async function showObjectNameInputBox(
-  objectNamePlaceholder: string
+  objectNamePlaceholder: string,
+  options?: vscode.InputBoxOptions
 ): Promise<string | undefined> {
   return vscode.window.showInputBox({
     value: removeLeadingSlash(objectNamePlaceholder),
@@ -143,6 +144,7 @@ export async function showObjectNameInputBox(
       text = text.trim()
       if (text[0] === '/') return `Please do not start with '/'.`
       if (text === '') return `Please enter target name.`
-    }
+    },
+    ...options
   })
 }

@@ -46,6 +46,7 @@ export async function copyUri(
       `Failed: copy from ${sourceName} to ${targetName}.` +
         ` Reason: ${err.message}`
     )
+    // should throw err, moveUri will catch it
     throw err
   }
 }
