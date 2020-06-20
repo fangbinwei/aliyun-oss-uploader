@@ -66,4 +66,13 @@ export default class Uploader {
     query = Object.assign(defaultConfig, query)
     return this.client.list(query, options)
   }
+
+  async copy(
+    name: string,
+    sourceName: string,
+    sourceBucket?: string,
+    options?: OSS.CopyObjectOptions
+  ): Promise<OSS.CopyAndPutMetaResult> {
+    return this.client.copy(name, sourceName, sourceBucket, options)
+  }
 }

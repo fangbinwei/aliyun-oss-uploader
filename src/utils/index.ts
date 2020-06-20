@@ -87,7 +87,7 @@ export function getOSSConfiguration(): OSS.Options {
   }
 }
 
-interface Progress {
+export interface Progress {
   progress: vscode.Progress<{ message?: string; increment?: number }>
   progressResolve: (value?: unknown) => void
   progressReject: (value?: unknown) => void

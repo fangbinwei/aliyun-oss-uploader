@@ -75,6 +75,10 @@
 					"light": "resources/light/link.svg",
 					"dark": "resources/dark/link.svg"
         }
+      },
+      {
+        "command": "elan.bucketExplorer.copyFromContext",
+        "title": "Copy to"
       }
     ],
     "viewsContainers": {
@@ -119,6 +123,10 @@
         {
           "command": "elan.bucketExplorer.copyLink",
           "when": "false"
+        },
+        {
+          "command": "elan.bucketExplorer.copyFromContext",
+          "when": "false"
         }
       ],
       "explorer/context": [
@@ -149,11 +157,16 @@
         {
           "command": "elan.bucketExplorer.uploadFromContext",
           "when": "view == bucketExplorer && viewItem == folder || view == bucketExplorer &&viewItem == bucket",
-          "group": "5_cutcopypaste"
+          "group": "upload@1"
         },
         {
           "command": "elan.bucketExplorer.uploadFromClipboard",
           "when": "view == bucketExplorer && viewItem == folder || view == bucketExplorer &&viewItem == bucket",
+          "group": "upload@1"
+        },
+        {
+          "command": "elan.bucketExplorer.copyFromContext",
+          "when": "view == bucketExplorer && viewItem == object",
           "group": "5_cutcopypaste"
         }
       ]
