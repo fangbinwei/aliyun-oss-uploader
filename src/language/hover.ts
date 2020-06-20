@@ -32,7 +32,7 @@ class HoverProvider implements vscode.HoverProvider {
     const delCommandUri = getCommandUriString(
       'Delete image',
       'elan.deleteByHover',
-      uri,
+      encodeURIComponent(uri), // should encode so that 'elan.deleteByHover' can get correct uri
       document.fileName,
       keyRange
     )
