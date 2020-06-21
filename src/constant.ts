@@ -28,3 +28,28 @@ export const CONTEXT_VALUE = {
   FOLDER: 'folder',
   CONNECT_ERROR: 'connectError'
 }
+
+export const OSS_REGION = [
+  'oss-cn-hangzhou',
+  'oss-cn-shanghai',
+  'oss-cn-qingdao',
+  'oss-cn-beijing',
+  'oss-cn-zhangjiakou',
+  'oss-cn-huhehaote',
+  'oss-cn-wulanchabu',
+  'oss-cn-shenzhen',
+  'oss-cn-heyuan',
+  'oss-cn-chengdu',
+  'oss-cn-hongkong',
+  'oss-us-west-1',
+  'oss-us-east-1',
+  'oss-ap-southeast-1',
+  'oss-ap-southeast-2',
+  'oss-ap-southeast-3',
+  'oss-ap-southeast-5',
+  'oss-ap-northeast-1',
+  'oss-ap-south-1',
+  'oss-eu-central-1',
+  'oss-eu-west-1',
+  'oss-me-east-1'
+]

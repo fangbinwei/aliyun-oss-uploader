@@ -21,6 +21,10 @@ export function activate(context: vscode.ExtensionContext): void {
 
   const registerCommands = [
     vscode.commands.registerCommand(
+      'elan.setOSSConfiguration',
+      setOSSConfiguration
+    ),
+    vscode.commands.registerCommand(
       'elan.uploadFromClipboard',
       uploadFromClipboard
     ),

@@ -4,18 +4,37 @@ import { removeTrailingSlash } from '@/utils/index'
 import { CONTEXT_VALUE, TIP_FAILED_INIT, SUPPORT_EXT } from '@/constant'
 import { getThemedIconPath } from './iconPath'
 import path from 'path'
+import Logger from '@/utils/log'
+type State = 'uninitialized' | 'initialized'
 
 export class BucketExplorerProvider
   implements vscode.TreeDataProvider<OSSObjectTreeItem> {
+  private _state: State = 'uninitialized'
   private _onDidChangeTreeData: vscode.EventEmitter<OSSObjectTreeItem | void> = new vscode.EventEmitter<OSSObjectTreeItem | void>()
 
   readonly onDidChangeTreeData: vscode.Event<OSSObjectTreeItem | void> = this
     ._onDidChangeTreeData.event
 
   private root: OSSObjectTreeItem | null = null
+  constructor() {
+    this.setState('uninitialized')
+    if (this.uploader && this.uploader.configuration.bucket) {
+      // after the codes below are executed, the state will always be 'initialized
+      this.setState('initialized')
+    }
+  }
 
   get uploader(): Uploader | null {
-    return Uploader.get()
+    const u = Uploader.get()
+    // after the codes below are executed, the state will always be 'initialized
+    if (u && u.configuration.bucket && this._state === 'uninitialized')
+      this.setState('initialized')
+    return u
+  }
+
+  setState(state: State): void {
+    this._state = state
+    vscode.commands.executeCommand('setContext', 'elan.state', state)
   }
 
   refresh(element?: OSSObjectTreeItem): void {
@@ -34,8 +53,10 @@ export class BucketExplorerProvider
   }
 
   getChildren(element?: OSSObjectTreeItem): Thenable<OSSObjectTreeItem[]> {
-    if (!this.uploader)
+    if (!this.uploader) {
+      if (this._state === 'uninitialized') return Promise.resolve([])
       return Promise.resolve([this.getOSSObjectErrorTreeItem()])
+    }
     if (this.root && this.root.label !== this.uploader.configuration.bucket) {
       this.root = null
       this.refresh()
@@ -50,7 +71,10 @@ export class BucketExplorerProvider
     }
     // root
     const bucket = this.uploader.configuration.bucket
-    if (!bucket) return Promise.resolve([this.getOSSObjectErrorTreeItem()])
+    if (!bucket) {
+      if (this._state === 'uninitialized') return Promise.resolve([])
+      return Promise.resolve([this.getOSSObjectErrorTreeItem()])
+    }
     this.root = new OSSObjectTreeItem({
       label: bucket,
       collapsibleState: vscode.TreeItemCollapsibleState.Expanded,
@@ -64,60 +88,69 @@ export class BucketExplorerProvider
     prefix: string,
     parentFolder: OSSObjectTreeItem
   ): Promise<OSSObjectTreeItem[]> {
-    if (!this.uploader) return [this.getOSSObjectErrorTreeItem()]
+    try {
+      if (!this.uploader) return [this.getOSSObjectErrorTreeItem()]
 
-    prefix = prefix === this.uploader.configuration.bucket ? '' : prefix + '/'
-    const res = await this.uploader.list({
-      prefix,
-      'max-keys': 100 //TODO: need config by user, need use 'maker' when exceed 1000
-    })
-    // we should create an empty 'folder' sometimes
-    // this 'empty object' is the 'parent folder' of these objects
-    let emptyObjectIndex: null | number = null
-    res.objects = res.objects || []
-    res.prefixes = res.prefixes || []
+      prefix = prefix === this.uploader.configuration.bucket ? '' : prefix + '/'
 
-    res.objects.some((p, index) => {
-      const isEmpty = p.name === prefix
-      if (isEmpty) emptyObjectIndex = index
-      return isEmpty
-    })
-    const commonOptions = {
-      prefix,
-      parentFolder,
-      parentFolderIsObject: emptyObjectIndex !== null,
-      total: res.prefixes.length + res.objects.length
+      const res = await this.uploader.list({
+        prefix,
+        'max-keys': 100 //TODO: need config by user, need use 'maker' when exceed 1000
+      })
+      // we should create an empty 'folder' sometimes
+      // this 'empty object' is the 'parent folder' of these objects
+      let emptyObjectIndex: null | number = null
+      res.objects = res.objects || []
+      res.prefixes = res.prefixes || []
+
+      res.objects.some((p, index) => {
+        const isEmpty = p.name === prefix
+        if (isEmpty) emptyObjectIndex = index
+        return isEmpty
+      })
+      const commonOptions = {
+        prefix,
+        parentFolder,
+        parentFolderIsObject: emptyObjectIndex !== null,
+        total: res.prefixes.length + res.objects.length
+      }
+      //TODO: config by user?
+      //TODO: after realizing pagination, we can show all ext
+      const filteredObject = res.objects.filter((o) => {
+        return SUPPORT_EXT.includes(path.extname(o.name).substr(1))
+      })
+      const _objects = filteredObject.map((p, index) => {
+        const isEmpty = index === emptyObjectIndex
+        return new OSSObjectTreeItem({
+          ...commonOptions,
+          url: p.url,
+          label: p.name.substr(prefix.length),
+          hidden: isEmpty, // TODO: maybe delete this property
+          contextValue: CONTEXT_VALUE.OBJECT,
+          iconPath: vscode.ThemeIcon.File
+        })
+      })
+      if (emptyObjectIndex != null) _objects.splice(emptyObjectIndex, 1)
+
+      const _prefixes = res.prefixes.map((p) => {
+        // e.g. if prefix is 'github', return prefix is 'github/*', should remove redundant string
+        p = removeTrailingSlash(p).substr(prefix.length)
+        return new OSSObjectTreeItem({
+          ...commonOptions,
+          label: p,
+          collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
+          contextValue: CONTEXT_VALUE.FOLDER,
+          iconPath: vscode.ThemeIcon.Folder
+        })
+      })
+
+      return _prefixes.concat(_objects)
+    } catch (err) {
+      Logger.showErrorMessage(
+        'Failed to list Objects. See output channel for more details.'
+      )
+      return [this.getOSSObjectErrorTreeItem()]
     }
-    //TODO: config by user?
-    const filteredObject = res.objects.filter((o) => {
-      return SUPPORT_EXT.includes(path.extname(o.name).substr(1))
-    })
-    const _objects = filteredObject.map((p, index) => {
-      const isEmpty = index === emptyObjectIndex
-      return new OSSObjectTreeItem({
-        ...commonOptions,
-        url: p.url,
-        label: p.name.substr(prefix.length),
-        hidden: isEmpty, // TODO: maybe delete this property
-        contextValue: CONTEXT_VALUE.OBJECT,
-        iconPath: vscode.ThemeIcon.File
-      })
-    })
-    if (emptyObjectIndex != null) _objects.splice(emptyObjectIndex, 1)
-
-    const _prefixes = res.prefixes.map((p) => {
-      // e.g. if prefix is 'github', return prefix is 'github/*', should remove redundant string
-      p = removeTrailingSlash(p).substr(prefix.length)
-      return new OSSObjectTreeItem({
-        ...commonOptions,
-        label: p,
-        collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-        contextValue: CONTEXT_VALUE.FOLDER,
-        iconPath: vscode.ThemeIcon.Folder
-      })
-    })
-
-    return _prefixes.concat(_objects)
   }
 }
 type TreeItemIconPath =

@@ -87,6 +87,23 @@ export function getOSSConfiguration(): OSS.Options {
   }
 }
 
+export async function updateOSSConfiguration(
+  options: OSS.Options
+): Promise<void[]> {
+  const config = vscode.workspace.getConfiguration('elan')
+  // update global settings
+  return Promise.all([
+    config.update('aliyun.bucket', options.bucket?.trim(), true),
+    config.update('aliyun.region', options.region?.trim(), true),
+    config.update('aliyun.accessKeyId', options.accessKeyId.trim(), true),
+    config.update(
+      'aliyun.accessKeySecret',
+      options.accessKeySecret.trim(),
+      true
+    )
+  ])
+}
+
 export interface Progress {
   progress: vscode.Progress<{ message?: string; increment?: number }>
   progressResolve: (value?: unknown) => void

@@ -27,6 +27,7 @@
     "Other"
   ],
   "activationEvents": [
+    "onCommand:elan.setOSSConfiguration",
     "onCommand:elan.uploadFromClipboard",
     "onCommand:elan.uploadFromExplorer",
     "onCommand:elan.uploadFromExplorerContext",
@@ -37,16 +38,20 @@
   "contributes": {
     "commands": [
       {
+        "command": "elan.setOSSConfiguration",
+        "title": "Elan: Set OSS Configuration"
+      },
+      {
         "command": "elan.uploadFromClipboard",
-        "title": "Elan: upload image from clipboard"
+        "title": "Elan: Upload Image from Clipboard"
       },
       {
         "command": "elan.uploadFromExplorer",
-        "title": "Elan: upload image from explorer"
+        "title": "Elan: Upload Image from Explorer"
       },
       {
         "command": "elan.uploadFromExplorerContext",
-        "title": "Elan: upload image"
+        "title": "Elan: Upload Image"
       },
       {
         "command": "elan.bucketExplorer.deleteFromContext",
@@ -106,6 +111,13 @@
         }
       ]
     },
+    "viewsWelcome": [
+      {
+        "view": "bucketExplorer",
+        "contents": "Failed to connect OSS. [learn more](https://github.com/fangbinwei/aliyun-oss-uploader#configuration/).\n[Set Configuration](command:elan.setOSSConfiguration)",
+        "when": "elan.state == uninitialized"
+      }
+    ],
     "menus": {
       "commandPalette": [
         {
