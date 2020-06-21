@@ -246,7 +246,6 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "yarn run compile",
     "compile": "yarn run copy && tsc -p ./",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "vspack": "vsce package -o aliyun-oss-uploader.vsix",
