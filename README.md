@@ -16,42 +16,70 @@ If you find it useful, please [star me on Github](https://github.com/fangbinwei/
 
 2. Setting the configuration of the extension
 
+- Click button to set the configuration.
+- Open the command panel (`ctrl+shift+p`/`command+shift+p`/`F1`) and type `elan set configuration`.
+
+![set configuration](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/setConfiguration.png)
+
+
 ### Upload Image(s)
 
-* Open the command panel (`ctrl+shift+p`/`command+shift+p`/`F1`) and type 'elan'.
+* Upload image through bucket treeView.
+* Open the command panel and type 'elan'.
   - upload image from clipboard
   - upload image from explorer
 
 * Right click the image of file explorer, click the menu item `Elan: upload image`
 
 ### Delete Image
+* Delete the image by bucketView
 
 * Hover the image syntax in markdown, click `Delete image` to delete the image in OSS. 
 
 >only support image syntax now
 
-![hoverDeleteCut](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/hoverDeleteCut_f9af47b7.png)
+### Usage Demo (Bucket TreeView)
 
-### Usage Demo
+#### Upload Image from File Explorer/ Clipboard
+Right click the folder, and upload image
 
-#### Upload from clipboard
+![bucketTreeView_upload](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/bucketTreeView_upload_9d027122.png)
+
+#### Copy/Move/Rename/Delete Image in Bucket TreeView
+Right click the image, and copy/move/delete the image.
+
+![bucketTreeView_delete_copy_move](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/bucketTreeView_delete_copy_move_240549f5.png)
+
+### Copy Link
+
+![bucketTreeView_copy_link](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/bucketTreeView_copy_link_6e710ef5.png)
+
+### Usage Demo (Other)
+
+#### Upload from Clipboard
+Open the command panel and type `elan upload from clipboard`
 
 ![updateFromClipboard](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/updateFromClipboard_bf2399e2.gif)
 
-#### Upload by explorer dialog
+#### Upload by Explorer Dialog
+
+Open the command panel and type `elan upload from explorer`
 
 ![updateFromExplorer](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/updateFromExplorer_9f6ee648.gif)
 
 
-#### Upload by explorer context
+#### Upload by Explorer Context
+Right click the image in vscode file explorer, choose `elan: upload image`
 
 ![updateFromExplorerContext](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/updateFromExplorerContext_37c3aac0.gif)
 
-> demo gif upload by this vscode extension.
+#### Delete Image (Hover)
 
-#### Delete image
+![hoverDeleteCut](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/hoverDeleteCut_f9af47b7.png)
 
 ![hoverDelete](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/hoverDelete_03dc5db7.gif)
+
+> demo gif upload by this vscode extension.
 
 ## Configuration
 ### `elan.aliyun.accessKeyId`
@@ -145,7 +173,10 @@ working in bucket explorer
 * [x] bundle by webpack/rollup
 * [x] enhance 'bucketFolder'
 * [x] delete image when hover GFM(github flavored markdown)
-* [ ] sidebar extension (e.g. show recent uploaded image)/ (should consider icon theme)
+* [x] sidebar extension (e.g. show recent uploaded image)/ (should consider icon theme)
+* [ ] recently uploaded show in bucket treeView
+* [ ] bucket treeView pagination/ batch operation (WIP)
+* [ ] preview image of bucket by webview (WIP)
 * [ ] confirmation before deleting image
 * [ ] inquire before upload to check folder
 * [ ] decoupling logic by tapable
