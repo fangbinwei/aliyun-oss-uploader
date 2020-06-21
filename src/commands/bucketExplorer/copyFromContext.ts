@@ -5,12 +5,17 @@ import { CommandContext } from '@/constant'
 import { copyUri } from '@/uploader/copyUri'
 import Logger from '@/utils/log'
 import { showObjectNameInputBox } from '@/utils'
+import path from 'path'
 
 async function copyFromBucketExplorerContext(
   treeItem: OSSObjectTreeItem
 ): Promise<void> {
   const sourceUri = vscode.Uri.parse(treeItem.url)
-  const targetName = await showObjectNameInputBox(sourceUri.path)
+  const sourcePath = sourceUri.path
+
+  const targetName = await showObjectNameInputBox(sourceUri.path, {
+    valueSelection: [0, sourcePath.length - path.extname(sourcePath).length - 1]
+  })
   if (!targetName) return
   try {
     await copyUri(vscode.Uri.file(targetName.trim()), sourceUri)
