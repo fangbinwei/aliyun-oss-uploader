@@ -110,7 +110,7 @@
     "viewsWelcome": [
       {
         "view": "bucketExplorer",
-        "contents": "Failed to connect OSS. [learn more](https://github.com/fangbinwei/aliyun-oss-uploader#configuration/).\n[Set Configuration](command:elan.setOSSConfiguration)",
+        "contents": "Failed to connect OSS. [Learn more](https://github.com/fangbinwei/aliyun-oss-uploader#configuration/).\n[Set Configuration](command:elan.setOSSConfiguration)",
         "when": "elan.state == uninitialized"
       }
     ],
