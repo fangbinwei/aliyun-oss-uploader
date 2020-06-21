@@ -50,7 +50,7 @@ export function isAliyunOssUri(uri: string): boolean {
 
     if (!['http', 'https'].includes(vsUri.scheme)) return false
 
-    const { bucket, region } = getOSSConfiguration()
+    const { bucket, region } = getElanConfiguration()
     const [_bucket, _region] = vsUri.authority.split('.')
     if (bucket !== _bucket) return false
     if (region !== _region) return false
@@ -76,12 +76,21 @@ export interface OSSConfiguration extends OSS.Options {
   maxKeys: number
 }
 
-export function getOSSConfiguration(): OSSConfiguration {
+export interface BucketViewConfiguration {
+  onlyShowImages: boolean
+}
+
+export type ElanConfiguration = OSSConfiguration & BucketViewConfiguration
+
+export function getElanConfiguration(): ElanConfiguration {
   const config = vscode.workspace.getConfiguration('elan')
   const aliyunConfig = config.get<OSSConfiguration>('aliyun', {
     accessKeyId: '',
     accessKeySecret: '',
     maxKeys: 100
+  })
+  const bucketViewConfig = config.get<BucketViewConfiguration>('bucketView', {
+    onlyShowImages: true
   })
   return {
     secure: true, // ensure protocol of callback url is https
@@ -89,7 +98,8 @@ export function getOSSConfiguration(): OSSConfiguration {
     accessKeySecret: aliyunConfig.accessKeySecret.trim(),
     bucket: aliyunConfig.bucket?.trim(),
     region: aliyunConfig.region?.trim(),
-    maxKeys: aliyunConfig.maxKeys
+    maxKeys: aliyunConfig.maxKeys,
+    onlyShowImages: bucketViewConfig.onlyShowImages
   }
 }
 
@@ -145,6 +155,7 @@ export async function showFolderNameInputBox(
 ): Promise<string | undefined> {
   return vscode.window.showInputBox({
     value: removeLeadingSlash(folderPlaceholder),
+    prompt: 'Confirm the target folder',
     placeHolder: `Enter folder name. e.g., 'example/folder/name/', '' means root folder`,
     validateInput: (text) => {
       text = text.trim()
@@ -161,6 +172,7 @@ export async function showObjectNameInputBox(
   options?: vscode.InputBoxOptions
 ): Promise<string | undefined> {
   return vscode.window.showInputBox({
+    prompt: 'Confirm the target object name',
     value: removeLeadingSlash(objectNamePlaceholder),
     placeHolder: `Enter target name. e.g., 'example/folder/name/target.jpg'`,
     validateInput: (text) => {

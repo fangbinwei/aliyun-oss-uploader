@@ -10,7 +10,7 @@ async function uploadFromBucketExplorerContext(
   selected: OSSObjectTreeItem
 ): Promise<void> {
   const folderPlaceholder =
-    selected.label === ext.OSSConfiguration.bucket
+    selected.label === ext.elanConfiguration.bucket
       ? ''
       : selected.prefix + selected.label + '/'
 

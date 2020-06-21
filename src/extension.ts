@@ -8,7 +8,7 @@ import hover from './language/hover'
 import Logger from './utils/log'
 import { BucketExplorerProvider } from './views/bucket'
 import { ext } from '@/extensionVariables'
-import { getOSSConfiguration } from '@/utils/index'
+import { getElanConfiguration } from '@/utils/index'
 import { registerBucket } from './views/registerBucket'
 
 // this method is called when your extension is activated
@@ -53,10 +53,10 @@ export function deactivate(): void {}
 function initializeExtensionVariables(ctx: vscode.ExtensionContext): void {
   ext.context = ctx
   // there are two position get oss configuration now, may redundant
-  ext.OSSConfiguration = getOSSConfiguration()
+  ext.elanConfiguration = getElanConfiguration()
   ctx.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration(() => {
-      ext.OSSConfiguration = getOSSConfiguration()
+      ext.elanConfiguration = getElanConfiguration()
     })
   )
 }

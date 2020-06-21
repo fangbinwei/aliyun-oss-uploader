@@ -104,10 +104,6 @@
         {
           "id": "bucketExplorer",
           "name": "Bucket"
-        },
-        {
-          "id": "recentlyUploadedExplorer",
-          "name": "Recently Uploaded(WIP)"
         }
       ]
     },
@@ -225,6 +221,11 @@
           "default": 100,
           "minimum": 1,
           "maximum": 1000
+        },
+        "elan.bucketView.onlyShowImages": {
+          "type": "boolean",
+          "description": "Only show images in bucket treeView.",
+          "default": true
         },
         "elan.uploadName": {
           "type": "string",

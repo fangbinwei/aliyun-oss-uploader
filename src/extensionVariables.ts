@@ -1,6 +1,6 @@
 import vscode, { ExtensionContext } from 'vscode'
 import { OSSObjectTreeItem, BucketExplorerProvider } from '@/views/bucket'
-import OSS from 'ali-oss'
+import { ElanConfiguration } from '@/utils/index'
 /**
  * Namespace for common variables used throughout the extension. They must be initialized in the activate() method of extension.ts
  */
@@ -11,5 +11,5 @@ export namespace ext {
   export let bucketExplorer: BucketExplorerProvider
   export let bucketExplorerTreeView: vscode.TreeView<OSSObjectTreeItem>
   export let bucketExplorerTreeViewVisible: boolean
-  export let OSSConfiguration: OSS.Options
+  export let elanConfiguration: ElanConfiguration
 }

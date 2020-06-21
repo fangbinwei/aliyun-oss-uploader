@@ -1,7 +1,7 @@
 import vscode from 'vscode'
 import OSS from 'ali-oss'
 import Logger from '@/utils/log'
-import { getOSSConfiguration, OSSConfiguration } from '@/utils/index'
+import { getElanConfiguration, ElanConfiguration } from '@/utils/index'
 import { ext } from '@/extensionVariables'
 
 interface DeleteResponse {
@@ -11,10 +11,10 @@ interface DeleteResponse {
 export default class Uploader {
   private static cacheUploader: Uploader | null = null
   private client: OSS
-  public configuration: OSSConfiguration
+  public configuration: ElanConfiguration
   public expired: boolean
   constructor() {
-    this.configuration = getOSSConfiguration()
+    this.configuration = getElanConfiguration()
     this.client = new OSS(this.configuration)
     this.expired = false
 

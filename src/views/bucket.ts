@@ -113,11 +113,13 @@ export class BucketExplorerProvider
         parentFolderIsObject: emptyObjectIndex !== null,
         total: res.prefixes.length + res.objects.length
       }
-      //TODO: config by user?
-      //TODO: after realizing pagination, we can show all ext
-      const filteredObject = res.objects.filter((o) => {
-        return SUPPORT_EXT.includes(path.extname(o.name).substr(1))
-      })
+      let filteredObject = res.objects
+      if (this.uploader.configuration.onlyShowImages) {
+        //TODO: after realizing pagination, we can show all ext
+        filteredObject = res.objects.filter((o) => {
+          return SUPPORT_EXT.includes(path.extname(o.name).substr(1))
+        })
+      }
       const _objects = filteredObject.map((p, index) => {
         const isEmpty = index === emptyObjectIndex
         return new OSSObjectTreeItem({

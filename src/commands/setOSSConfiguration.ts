@@ -1,6 +1,6 @@
 import { ext } from '@/extensionVariables'
 import { getThemedIconPath, IconPath } from '@/views/iconPath'
-import { getOSSConfiguration, updateOSSConfiguration } from '@/utils/index'
+import { getElanConfiguration, updateOSSConfiguration } from '@/utils/index'
 import { OSS_REGION } from '@/constant'
 
 import {
@@ -35,7 +35,7 @@ export async function setOSSConfiguration(): Promise<void> {
   const regions: QuickPickItem[] = [...OSS_REGION].map((label) => ({ label }))
 
   async function collectInputs(): Promise<State> {
-    const oldConfiguration = getOSSConfiguration()
+    const oldConfiguration = getElanConfiguration()
     const state: Partial<State> = {}
     state.accessKeyId = oldConfiguration.accessKeyId
     state.accessKeySecret = oldConfiguration.accessKeySecret
