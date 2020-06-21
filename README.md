@@ -155,6 +155,8 @@ If no file is opened, `${relativeToVsRootPath}` will be parsed to `''`, . If no 
 
 If you want to debugger the project, just press `F5` to Run Extension. Then we can debugger the output of webpack dist.
 
+> since `@types/ali-oss` is outdated you may see some ts error in your local
+
 ## WIP
 
 working in bucket explorer
