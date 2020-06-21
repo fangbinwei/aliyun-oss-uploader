@@ -128,7 +128,8 @@ export class BucketExplorerProvider
           label: p.name.substr(prefix.length),
           hidden: isEmpty, // TODO: maybe delete this property
           contextValue: CONTEXT_VALUE.OBJECT,
-          iconPath: vscode.ThemeIcon.File
+          iconPath: vscode.ThemeIcon.File,
+          resourceUri: vscode.Uri.parse(p.url)
         })
       })
       if (emptyObjectIndex != null) _objects.splice(emptyObjectIndex, 1)
@@ -160,14 +161,9 @@ type TreeItemIconPath =
   | { light: string | vscode.Uri; dark: string | vscode.Uri }
   | vscode.ThemeIcon
 
-interface OSSObjectTreeItemOptions {
-  id?: string
+interface OSSObjectTreeItemOptions extends vscode.TreeItem {
   label: string
   url?: string
-  collapsibleState?: vscode.TreeItemCollapsibleState
-  description?: string
-  iconPath?: TreeItemIconPath
-  contextValue: string
   prefix?: string
   parentFolder?: OSSObjectTreeItem
   parentFolderIsObject?: boolean
@@ -195,6 +191,7 @@ export class OSSObjectTreeItem extends vscode.TreeItem {
     this.parentFolder = options.parentFolder || null
     this.parentFolderIsObject = !!options.parentFolderIsObject
     this.total = options.total || 0
+    this.resourceUri = options.resourceUri
   }
   get tooltip(): string {
     return `${this.label}`
