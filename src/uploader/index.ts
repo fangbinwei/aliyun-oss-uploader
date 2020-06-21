@@ -1,7 +1,7 @@
 import vscode from 'vscode'
 import OSS from 'ali-oss'
 import Logger from '@/utils/log'
-import { getOSSConfiguration } from '@/utils/index'
+import { getOSSConfiguration, OSSConfiguration } from '@/utils/index'
 import { ext } from '@/extensionVariables'
 
 interface DeleteResponse {
@@ -11,7 +11,7 @@ interface DeleteResponse {
 export default class Uploader {
   private static cacheUploader: Uploader | null = null
   private client: OSS
-  public configuration: OSS.Options
+  public configuration: OSSConfiguration
   public expired: boolean
   constructor() {
     this.configuration = getOSSConfiguration()
@@ -60,7 +60,7 @@ export default class Uploader {
     options?: OSS.RequestOptions
   ): Promise<OSS.ListObjectResult> {
     const defaultConfig = {
-      'max-keys': 100,
+      'max-keys': this.configuration.maxKeys,
       delimiter: '/'
     }
     query = Object.assign(defaultConfig, query)

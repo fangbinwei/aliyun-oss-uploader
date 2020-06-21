@@ -219,6 +219,13 @@
           "markdownDescription": "e.g. `oss-cn-shanghai`, [check details](https://github.com/ali-sdk/ali-oss#data-regions).",
           "default": ""
         },
+        "elan.aliyun.maxKeys": {
+          "type": "number",
+          "description": "Max objects in the same level directory of bucket treeView.",
+          "default": 100,
+          "minimum": 1,
+          "maximum": 1000
+        },
         "elan.uploadName": {
           "type": "string",
           "markdownDescription": "Object name store on OSS\n- `${fileName}`: Filename of uploaded file.\n-`${ext}`: Filename extension of uploaded file.\n- `${contentHash}`: The hash of image. By default, it's the hex digest of md5 hash. You can specify the length of the hash, e.g. `${contentHash:8}`. \n-`${activeMdFilename}`: Filename of active markdown in text editor.",

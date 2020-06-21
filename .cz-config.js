@@ -31,7 +31,7 @@ module.exports = {
     }
   ],
 
-  scopes: [{ name: 'uploader' }, {name: 'bucketExplorer'}, { name: 'templateSubstitute' }],
+  scopes: [{ name: 'uploader' }, {name: 'hover'}, {name: 'bucketExplorer'}, { name: 'templateSubstitute' }],
 
   allowTicketNumber: false,
   isTicketNumberRequired: false,

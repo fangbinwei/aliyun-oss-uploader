@@ -52,6 +52,7 @@ export function deactivate(): void {}
 
 function initializeExtensionVariables(ctx: vscode.ExtensionContext): void {
   ext.context = ctx
+  // there are two position get oss configuration now, may redundant
   ext.OSSConfiguration = getOSSConfiguration()
   ctx.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration(() => {

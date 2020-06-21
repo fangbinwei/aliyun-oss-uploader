@@ -72,18 +72,24 @@ export function removeTrailingSlash(p: string): string {
   return p.replace(/\/+$/, '')
 }
 
-export function getOSSConfiguration(): OSS.Options {
+export interface OSSConfiguration extends OSS.Options {
+  maxKeys: number
+}
+
+export function getOSSConfiguration(): OSSConfiguration {
   const config = vscode.workspace.getConfiguration('elan')
-  const aliyunConfig = config.get<OSS.Options>('aliyun', {
+  const aliyunConfig = config.get<OSSConfiguration>('aliyun', {
     accessKeyId: '',
-    accessKeySecret: ''
+    accessKeySecret: '',
+    maxKeys: 100
   })
   return {
     secure: true, // ensure protocol of callback url is https
     accessKeyId: aliyunConfig.accessKeyId.trim(),
     accessKeySecret: aliyunConfig.accessKeySecret.trim(),
     bucket: aliyunConfig.bucket?.trim(),
-    region: aliyunConfig.region?.trim()
+    region: aliyunConfig.region?.trim(),
+    maxKeys: aliyunConfig.maxKeys
   }
 }
 

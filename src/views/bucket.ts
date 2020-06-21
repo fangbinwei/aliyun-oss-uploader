@@ -94,8 +94,7 @@ export class BucketExplorerProvider
       prefix = prefix === this.uploader.configuration.bucket ? '' : prefix + '/'
 
       const res = await this.uploader.list({
-        prefix,
-        'max-keys': 100 //TODO: need config by user, need use 'maker' when exceed 1000
+        prefix
       })
       // we should create an empty 'folder' sometimes
       // this 'empty object' is the 'parent folder' of these objects
