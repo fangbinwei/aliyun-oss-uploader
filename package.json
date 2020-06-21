@@ -65,20 +65,20 @@
         "command": "elan.bucketExplorer.uploadFromClipboard",
         "title": "Upload from Clipboard"
       },
-			{
-				"command": "elan.bucketExplorer.refreshRoot",
-				"title": "Refresh",
-				"icon": {
-					"light": "resources/light/refresh.svg",
-					"dark": "resources/dark/refresh.svg"
-				}
+      {
+        "command": "elan.bucketExplorer.refreshRoot",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
       },
       {
         "command": "elan.bucketExplorer.copyLink",
         "title": "Copy Link",
         "icon": {
-					"light": "resources/light/link.svg",
-					"dark": "resources/dark/link.svg"
+          "light": "resources/light/link.svg",
+          "dark": "resources/dark/link.svg"
         }
       },
       {
@@ -153,11 +153,11 @@
         }
       ],
       "view/title": [
-				{
-					"command": "elan.bucketExplorer.refreshRoot",
-					"when": "view == bucketExplorer",
-					"group": "navigation"
-				}
+        {
+          "command": "elan.bucketExplorer.refreshRoot",
+          "when": "view == bucketExplorer",
+          "group": "navigation"
+        }
       ],
       "view/item/context": [
         {
@@ -248,7 +248,7 @@
   "scripts": {
     "vscode:prepublish": "yarn run compile",
     "compile": "yarn run copy && tsc -p ./",
-    "build": "webpack --mode production",
+    "build": "cross-env NODE_ENV=production webpack --mode production",
     "vspack": "vsce package -o aliyun-oss-uploader.vsix",
     "release": "standard-version",
     "clean": "rm -rf dist out",
@@ -270,6 +270,7 @@
     "commitizen": "^4.1.2",
     "copy-webpack-plugin": "^6.0.1",
     "cpy-cli": "^3.1.1",
+    "cross-env": "^7.0.2",
     "cz-customizable": "^6.2.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",

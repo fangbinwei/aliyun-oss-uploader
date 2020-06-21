@@ -35,7 +35,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin') // Wow!
         exclude: /node_modules/,
         use: [
           {
-            loader: 'ts-loader'
+            loader: 'ts-loader',
+            options: {
+              // TODO: since @types/ali-oss has bug, we shouldn't emit error when build for release, need pr @types/ali-oss
+              transpileOnly: process.env.NODE_ENV === 'production'
+            }
           }
         ]
       }
