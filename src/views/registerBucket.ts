@@ -6,16 +6,18 @@ import { uploadFromBucketExplorerClipboard } from '@/commands/bucketExplorer/upl
 import { copyLinkFromBucketExplorer } from '@/commands/bucketExplorer/copyLink'
 import { copyFromBucketExplorerContext } from '@/commands/bucketExplorer/copyFromContext'
 import { moveFromBucketExplorerContext } from '@/commands/bucketExplorer/moveFromContext'
+import { BucketExplorerProvider } from './bucket'
 import { CommandContext } from '@/constant'
 
-export function registerBucket(context: vscode.ExtensionContext): void {
+export function registerBucket(): vscode.Disposable[] {
+  ext.bucketExplorer = new BucketExplorerProvider()
   ext.bucketExplorerTreeView = vscode.window.createTreeView('bucketExplorer', {
     treeDataProvider: ext.bucketExplorer,
     // TODO: support select many
     // canSelectMany: true,
     showCollapseAll: true
   })
-  const registerCommands = [
+  const _disposable = [
     vscode.commands.registerCommand(
       uploadFromBucketExplorerContext.command,
       uploadFromBucketExplorerContext
@@ -43,13 +45,16 @@ export function registerBucket(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand(
       copyFromBucketExplorerContext.command,
       copyFromBucketExplorerContext
-    )
+    ),
+    ext.bucketExplorerTreeView
   ]
-  context.subscriptions.push(ext.bucketExplorerTreeView)
-  context.subscriptions.push(...registerCommands)
-  context.subscriptions.push(
-    ext.bucketExplorerTreeView.onDidChangeVisibility(({ visible }) => {
+
+  ext.bucketExplorerTreeView.onDidChangeVisibility(
+    ({ visible }) => {
       ext.bucketExplorerTreeViewVisible = visible
-    })
+    },
+    null,
+    _disposable
   )
+  return _disposable
 }

@@ -6,7 +6,6 @@ import { setOSSConfiguration } from './commands/setOSSConfiguration'
 import deleteByHover from './commands/deleteByHover'
 import hover from './language/hover'
 import Logger from './utils/log'
-import { BucketExplorerProvider } from './views/bucket'
 import { ext } from '@/extensionVariables'
 import { getElanConfiguration } from '@/utils/index'
 import { registerBucket } from './views/registerBucket'
@@ -17,9 +16,7 @@ import { registerBucket } from './views/registerBucket'
 export function activate(context: vscode.ExtensionContext): void {
   initializeExtensionVariables(context)
   Logger.channel = vscode.window.createOutputChannel('Elan')
-  ext.bucketExplorer = new BucketExplorerProvider()
-
-  const registerCommands = [
+  const registeredCommands = [
     vscode.commands.registerCommand(
       'elan.setOSSConfiguration',
       setOSSConfiguration
@@ -40,10 +37,10 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.languages.registerHoverProvider('markdown', hover)
     // TODO: command registry refactor
   ]
-  context.subscriptions.push(...registerCommands)
+  context.subscriptions.push(...registeredCommands)
 
   // views/bucket
-  registerBucket(context)
+  context.subscriptions.push(...registerBucket())
 }
 
 // this method is called when your extension is deactivated
