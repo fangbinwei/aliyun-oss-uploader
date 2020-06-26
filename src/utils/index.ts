@@ -56,7 +56,7 @@ export function isAliyunOssUri(uri: string): boolean {
     if (region !== _region) return false
 
     const ext = path.extname(vsUri.path).substr(1)
-    if (!SUPPORT_EXT.includes(ext)) return false
+    if (!SUPPORT_EXT.includes(ext.toLowerCase())) return false
 
     return true
   } catch {

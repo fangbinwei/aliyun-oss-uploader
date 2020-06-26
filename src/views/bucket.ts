@@ -93,9 +93,7 @@ export class BucketExplorerProvider
 
       prefix = prefix === this.uploader.configuration.bucket ? '' : prefix + '/'
 
-      const res = await this.uploader.list({
-        prefix
-      })
+      const res = await this.uploader.list({ prefix })
       // we should create an empty 'folder' sometimes
       // this 'empty object' is the 'parent folder' of these objects
       let emptyObjectIndex: null | number = null
@@ -117,11 +115,15 @@ export class BucketExplorerProvider
       if (this.uploader.configuration.onlyShowImages) {
         //TODO: after realizing pagination, we can show all ext
         filteredObject = res.objects.filter((o) => {
-          return SUPPORT_EXT.includes(path.extname(o.name).substr(1))
+          return SUPPORT_EXT.includes(
+            path.extname(o.name).substr(1).toLowerCase()
+          )
         })
       }
       const _objects = filteredObject.map((p, index) => {
-        const isImage = SUPPORT_EXT.includes(path.extname(p.name).substr(1))
+        const isImage = SUPPORT_EXT.includes(
+          path.extname(p.name).substr(1).toLowerCase()
+        )
         const isEmpty = index === emptyObjectIndex
         return new OSSObjectTreeItem({
           ...commonOptions,
