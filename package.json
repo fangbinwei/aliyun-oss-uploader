@@ -39,15 +39,18 @@
     "commands": [
       {
         "command": "elan.setOSSConfiguration",
-        "title": "Elan: Set OSS Configuration"
+        "title": "Set OSS Configuration",
+        "category": "Elan"
       },
       {
         "command": "elan.uploadFromClipboard",
-        "title": "Elan: Upload Image from Clipboard"
+        "title": "Upload Image from Clipboard",
+        "category": "Elan"
       },
       {
         "command": "elan.uploadFromExplorer",
-        "title": "Elan: Upload Image from Explorer"
+        "title": "Upload Image from Explorer",
+        "category": "Elan"
       },
       {
         "command": "elan.uploadFromExplorerContext",

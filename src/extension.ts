@@ -9,6 +9,7 @@ import Logger from './utils/log'
 import { ext } from '@/extensionVariables'
 import { getElanConfiguration } from '@/utils/index'
 import { registerBucket } from './views/registerBucket'
+import { ElanImagePreviewPanel } from '@/webview/imagePreview'
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -17,6 +18,9 @@ export function activate(context: vscode.ExtensionContext): void {
   initializeExtensionVariables(context)
   Logger.channel = vscode.window.createOutputChannel('Elan')
   const registeredCommands = [
+    vscode.commands.registerCommand('elan.webView.imagePreview', (imageSrc) => {
+      ElanImagePreviewPanel.createOrShow(context.extensionUri, imageSrc)
+    }),
     vscode.commands.registerCommand(
       'elan.setOSSConfiguration',
       setOSSConfiguration

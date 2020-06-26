@@ -157,11 +157,11 @@ If you want to debugger the project, just press `F5` to Run Extension. Then we c
 
 > since `@types/ali-oss` is outdated you may see some ts error in your local
 
-## WIP
+<!-- ## WIP
 
 working in bucket explorer
 
-![bucketExplorerWIP](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/bucketExplorerWIP.png)
+![bucketExplorerWIP](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/bucketExplorerWIP.png) -->
 
 ## TODO
 

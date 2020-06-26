@@ -1,3 +1,4 @@
 dist
 out
 webpack.config.js
+resources/webview/main.js

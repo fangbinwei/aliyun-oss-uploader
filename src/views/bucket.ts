@@ -121,6 +121,7 @@ export class BucketExplorerProvider
         })
       }
       const _objects = filteredObject.map((p, index) => {
+        const isImage = SUPPORT_EXT.includes(path.extname(p.name).substr(1))
         const isEmpty = index === emptyObjectIndex
         return new OSSObjectTreeItem({
           ...commonOptions,
@@ -129,7 +130,14 @@ export class BucketExplorerProvider
           hidden: isEmpty, // TODO: maybe delete this property
           contextValue: CONTEXT_VALUE.OBJECT,
           iconPath: vscode.ThemeIcon.File,
-          resourceUri: vscode.Uri.parse(p.url)
+          resourceUri: vscode.Uri.parse(p.url),
+          command: isImage
+            ? ({
+                command: 'elan.webView.imagePreview',
+                title: 'preview',
+                arguments: [p.url]
+              } as vscode.Command)
+            : undefined
         })
       })
       if (emptyObjectIndex != null) _objects.splice(emptyObjectIndex, 1)
@@ -155,11 +163,6 @@ export class BucketExplorerProvider
     }
   }
 }
-type TreeItemIconPath =
-  | string
-  | vscode.Uri
-  | { light: string | vscode.Uri; dark: string | vscode.Uri }
-  | vscode.ThemeIcon
 
 interface OSSObjectTreeItemOptions extends vscode.TreeItem {
   label: string
@@ -192,6 +195,7 @@ export class OSSObjectTreeItem extends vscode.TreeItem {
     this.parentFolderIsObject = !!options.parentFolderIsObject
     this.total = options.total || 0
     this.resourceUri = options.resourceUri
+    this.command = options.command
   }
   get tooltip(): string {
     return `${this.label}`
