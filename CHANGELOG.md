@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.4.0...v1.4.1) (2020-06-27)
+
+
+### Bug Fixes
+
+* **bucketExplorer:** fix bucket list bug ([44bebbd](https://github.com/fangbinwei/aliyun-oss-uploader/commit/44bebbd23092afe5cf73c76348ead2c6f84f160c))
+
 ## [1.4.0](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.2.0...v1.4.0) (2020-06-27)
 
 
