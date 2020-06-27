@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.2.0...v1.4.0) (2020-06-27)
+
+
+### Features
+
+* **bucketExplorer:** add config 'elan.bucketView.onlyShowImages' ([a618ab9](https://github.com/fangbinwei/aliyun-oss-uploader/commit/a618ab9b076ebeb67929993c35deeb15384a1da4))
+* **bucketExplorer:** add treeView of bucket ([b5021e4](https://github.com/fangbinwei/aliyun-oss-uploader/commit/b5021e4fad7dc9d409f3754af7b54ab9ff30ad16))
+* **bucketExplorer:** can delete single from bucketExplorer ([bbea6d5](https://github.com/fangbinwei/aliyun-oss-uploader/commit/bbea6d510701a8334d7b7c0a21f3bfc1edc424d6))
+* **bucketExplorer:** can upload from bucket explorer ([9c033f8](https://github.com/fangbinwei/aliyun-oss-uploader/commit/9c033f81025175fce097fcf3fec840d8329af868))
+* **bucketExplorer:** copy link ([8a0bf04](https://github.com/fangbinwei/aliyun-oss-uploader/commit/8a0bf044346fcc721a95a4756444d5c8f6dec6fe))
+* **bucketExplorer:** copy object ([acea402](https://github.com/fangbinwei/aliyun-oss-uploader/commit/acea40242a7571584981b1155e794a9ab69bdeef))
+* **bucketExplorer:** move/rename object ([e30d95b](https://github.com/fangbinwei/aliyun-oss-uploader/commit/e30d95bf4456e4ec2ca06cd4c1bf78e8547d7884))
+* **bucketExplorer:** support uploading from clipboard ([8edae28](https://github.com/fangbinwei/aliyun-oss-uploader/commit/8edae282c7cd72822bb88ebe7323406957007a58))
+* **uploader:** add config 'elan.aliyun.maxKeys' ([3a0aac9](https://github.com/fangbinwei/aliyun-oss-uploader/commit/3a0aac9788f9afa557866819c94cc64e7b6d5cfa))
+* **webview:** preview the image of bucket explorer ([81c0606](https://github.com/fangbinwei/aliyun-oss-uploader/commit/81c060669f9422c7f94bac576c3b68305df81628))
+* help user to set configuration ([3451fbe](https://github.com/fangbinwei/aliyun-oss-uploader/commit/3451fbe155aaa3a0a93e9c2ef3f7944a735bff05))
+
+
+### Bug Fixes
+
+* **bucketExplorer:** add resourceUri for 'File' ([5411d54](https://github.com/fangbinwei/aliyun-oss-uploader/commit/5411d5432b1546e00433e561af4b575f2f561abf))
+* **bucketExplorer:** copyFromContext selection ([319c620](https://github.com/fangbinwei/aliyun-oss-uploader/commit/319c620a4089503d1742feceeebd7b57791010f7))
+* **bucketExplorer:** ext case-insensitive ([5f6916b](https://github.com/fangbinwei/aliyun-oss-uploader/commit/5f6916bb964fafba73f5b56d15ad008ae72d08aa))
+* **hover:** fix hover delete can't get correct uri ([b2f2d65](https://github.com/fangbinwei/aliyun-oss-uploader/commit/b2f2d65d01108dddb24b022e48801e730da28030))
+* fix disposable ([76d67e9](https://github.com/fangbinwei/aliyun-oss-uploader/commit/76d67e93a0b023963ecc446935c08abc7ad70295))
+
 ## [1.3.0](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.2.0...v1.3.0) (2020-06-21)
 
 
