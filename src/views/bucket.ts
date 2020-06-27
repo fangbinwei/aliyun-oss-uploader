@@ -111,16 +111,7 @@ export class BucketExplorerProvider
         parentFolderIsObject: emptyObjectIndex !== null,
         total: res.prefixes.length + res.objects.length
       }
-      let filteredObject = res.objects
-      if (this.uploader.configuration.onlyShowImages) {
-        //TODO: after realizing pagination, we can show all ext
-        filteredObject = res.objects.filter((o) => {
-          return SUPPORT_EXT.includes(
-            path.extname(o.name).substr(1).toLowerCase()
-          )
-        })
-      }
-      const _objects = filteredObject.map((p, index) => {
+      let _objects = res.objects.map((p, index) => {
         const isImage = SUPPORT_EXT.includes(
           path.extname(p.name).substr(1).toLowerCase()
         )
@@ -143,6 +134,15 @@ export class BucketExplorerProvider
         })
       })
       if (emptyObjectIndex != null) _objects.splice(emptyObjectIndex, 1)
+
+      if (this.uploader.configuration.onlyShowImages) {
+        //TODO: after realizing pagination, we can show all ext
+        _objects = _objects.filter((o) => {
+          return SUPPORT_EXT.includes(
+            path.extname(o.label).substr(1).toLowerCase()
+          )
+        })
+      }
 
       const _prefixes = res.prefixes.map((p) => {
         // e.g. if prefix is 'github', return prefix is 'github/*', should remove redundant string
@@ -177,6 +177,7 @@ interface OSSObjectTreeItemOptions extends vscode.TreeItem {
 }
 
 export class OSSObjectTreeItem extends vscode.TreeItem {
+  label: string
   prefix: string
   hidden: boolean
   url: string
