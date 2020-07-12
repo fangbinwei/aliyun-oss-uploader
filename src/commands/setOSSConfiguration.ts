@@ -213,6 +213,7 @@ interface QuickPickParameters<T extends QuickPickItem> {
   title: string
   step: number
   totalSteps: number
+  ignoreFocusOut?: boolean
   items: T[]
   activeItem?: T
   placeholder: string
@@ -224,6 +225,7 @@ interface InputBoxParameters {
   title: string
   step: number
   totalSteps: number
+  ignoreFocusOut?: boolean
   value: string
   prompt: string
   validate: (value: string) => Promise<string | undefined>
@@ -280,6 +282,7 @@ class MultiStepInput {
     title,
     step,
     totalSteps,
+    ignoreFocusOut,
     items,
     activeItem,
     placeholder,
@@ -302,6 +305,7 @@ class MultiStepInput {
         input.title = title
         input.step = step
         input.totalSteps = totalSteps
+        input.ignoreFocusOut = ignoreFocusOut || true
         input.placeholder = placeholder
         input.items = items
         if (activeItem) {
@@ -346,6 +350,7 @@ class MultiStepInput {
     step,
     totalSteps,
     value,
+    ignoreFocusOut,
     prompt,
     validate,
     buttons,
@@ -362,6 +367,7 @@ class MultiStepInput {
         input.totalSteps = totalSteps
         input.value = value || ''
         input.prompt = prompt
+        input.ignoreFocusOut = ignoreFocusOut || true
         input.buttons = [
           ...(this.steps.length > 1 ? [QuickInputButtons.Back] : []),
           ...(buttons || [])
