@@ -9,6 +9,8 @@
 
 [English README](https://github.com/fangbinwei/aliyun-oss-uploader/blob/master/README_en_US.md)
 
+如果github README看demo gif卡顿, 可以在[vscode market中查看](https://marketplace.visualstudio.com/items?itemName=fangbinwei.aliyun-oss-uploader)
+
 ## Support
 If you find it useful, please [star me on Github](https://github.com/fangbinwei/aliyun-oss-uploader).
 
