@@ -280,7 +280,7 @@
     "glob": "^7.1.6",
     "mocha": "^7.1.2",
     "prettier": "^2.0.5",
-    "standard-version": "^8.0.0",
+    "standard-version": "^8.0.1",
     "ts-loader": "^7.0.5",
     "typescript": "^3.8.3",
     "vsce": "^1.75.0",
