@@ -225,6 +225,16 @@
           "minimum": 1,
           "maximum": 1000
         },
+        "elan.aliyun.customDomain": {
+          "type": "string",
+          "markdownDescription": "If you want to use HTTPS with `Custom Domain`, you should configure the HTTPS certificate on Aliyun OSS. [Check detail](https://help.aliyun.com/document_detail/97187.html?spm=a2c4g.11186623.2.10.43848bddZaQgmF#section-cu6-eyc-ek6).",
+          "default": ""
+        },
+        "elan.aliyun.secure": {
+          "type": "boolean",
+          "markdownDescription": "The protocol of URL. HTTPS (secure: `true`) or HTTP (secure: `false`) protocol.",
+          "default": true
+        },
         "elan.bucketView.onlyShowImages": {
           "type": "boolean",
           "description": "Only show images in bucket treeView.",

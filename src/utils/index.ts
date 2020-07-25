@@ -74,6 +74,8 @@ export function removeTrailingSlash(p: string): string {
 
 export interface OSSConfiguration extends OSS.Options {
   maxKeys: number
+  secure: boolean
+  customDomain: string
 }
 
 export interface BucketViewConfiguration {
@@ -87,13 +89,16 @@ export function getElanConfiguration(): ElanConfiguration {
   const aliyunConfig = config.get<OSSConfiguration>('aliyun', {
     accessKeyId: '',
     accessKeySecret: '',
-    maxKeys: 100
+    maxKeys: 100,
+    secure: true,
+    customDomain: ''
   })
   const bucketViewConfig = config.get<BucketViewConfiguration>('bucketView', {
     onlyShowImages: true
   })
   return {
-    secure: true, // ensure protocol of callback url is https
+    secure: aliyunConfig.secure, // ensure protocol of callback url is https
+    customDomain: aliyunConfig.customDomain.trim(),
     accessKeyId: aliyunConfig.accessKeyId.trim(),
     accessKeySecret: aliyunConfig.accessKeySecret.trim(),
     bucket: aliyunConfig.bucket?.trim(),

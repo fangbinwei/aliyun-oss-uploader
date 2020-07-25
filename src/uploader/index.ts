@@ -15,7 +15,15 @@ export default class Uploader {
   public expired: boolean
   constructor() {
     this.configuration = getElanConfiguration()
-    this.client = new OSS(this.configuration)
+    this.client = new OSS({
+      bucket: this.configuration.bucket,
+      region: this.configuration.region,
+      accessKeyId: this.configuration.accessKeyId,
+      accessKeySecret: this.configuration.accessKeySecret,
+      secure: this.configuration.secure,
+      cname: !!this.configuration.customDomain,
+      endpoint: this.configuration.customDomain || undefined
+    })
     this.expired = false
 
     // instance is expired if configuration update
