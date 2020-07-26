@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.5.0...v1.5.1) (2020-07-26)
+
+
+### Bug Fixes
+
+* **hover:** fix hoverDelete when customDomain has been set ([77241df](https://github.com/fangbinwei/aliyun-oss-uploader/commit/77241df245d8af659ce6a330b07cdb0a893c63f6))
+
 ## [1.5.0](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.4.1...v1.5.0) (2020-07-26)
 
 
