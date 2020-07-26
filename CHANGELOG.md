@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.4.1...v1.5.0) (2020-07-26)
+
+
+### Features
+
+* can upload files other than pic ([03a1d47](https://github.com/fangbinwei/aliyun-oss-uploader/commit/03a1d472c6f5f65b01ed66effe59be5a28051565))
+* **uploader:** support custom domain ([e367373](https://github.com/fangbinwei/aliyun-oss-uploader/commit/e36737381b02f64ec0d868fc8a2180e0665268f9)), closes [#2](https://github.com/fangbinwei/aliyun-oss-uploader/issues/2)
+
+
+### Bug Fixes
+
+* **configuration:** ignore focus out ([34ea93e](https://github.com/fangbinwei/aliyun-oss-uploader/commit/34ea93e97a584fd60c6fe1da4c57691821155a5f))
+
 ### [1.4.1](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.4.0...v1.4.1) (2020-06-27)
 
 
