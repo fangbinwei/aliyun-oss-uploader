@@ -159,7 +159,12 @@ export class BucketExplorerProvider
       return _prefixes.concat(_objects)
     } catch (err) {
       Logger.showErrorMessage(
-        'Failed to list Objects. See output channel for more details.'
+        'Failed to list objects. See output channel for more details.'
+      )
+      Logger.log(
+        `Failed: list objects.` +
+          ` Reason: ${err.message}` +
+          ` If you set customDomain, is it match to the bucket? `
       )
       return [this.getOSSObjectErrorTreeItem()]
     }

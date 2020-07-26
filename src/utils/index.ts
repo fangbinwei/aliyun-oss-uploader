@@ -50,10 +50,16 @@ export function isAliyunOssUri(uri: string): boolean {
 
     if (!['http', 'https'].includes(vsUri.scheme)) return false
 
-    const { bucket, region } = getElanConfiguration()
-    const [_bucket, _region] = vsUri.authority.split('.')
-    if (bucket !== _bucket) return false
-    if (region !== _region) return false
+    const { bucket, region, customDomain } = getElanConfiguration()
+    // the priority of customDomain is highest
+    if (customDomain) {
+      if (vsUri.authority !== customDomain) return false
+    } else {
+      // consider bucket and region when no customDomain
+      const [_bucket, _region] = vsUri.authority.split('.')
+      if (bucket !== _bucket) return false
+      if (region !== _region) return false
+    }
 
     const ext = path.extname(vsUri.path).substr(1)
     if (!SUPPORT_EXT.includes(ext.toLowerCase())) return false
