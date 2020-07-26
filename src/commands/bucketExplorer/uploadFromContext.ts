@@ -18,9 +18,11 @@ async function uploadFromBucketExplorerContext(
   if (folder === undefined) return
 
   const images = await vscode.window.showOpenDialog({
-    filters: {
-      Images: SUPPORT_EXT.slice()
-    },
+    filters: ext.elanConfiguration.onlyShowImages
+      ? {
+          Images: SUPPORT_EXT.slice()
+        }
+      : {},
     canSelectMany: true
   })
   if (!images) return
