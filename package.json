@@ -232,7 +232,7 @@
         },
         "elan.aliyun.secure": {
           "type": "boolean",
-          "markdownDescription": "The protocol of URL. HTTPS (secure: `true`) or HTTP (secure: `false`) protocol.",
+          "markdownDescription": "The protocol of URL. HTTPS (secure: `checked`) or HTTP protocol.",
           "default": true
         },
         "elan.bucketView.onlyShowImages": {
