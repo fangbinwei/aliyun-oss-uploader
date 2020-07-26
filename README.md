@@ -107,6 +107,8 @@ If you find it useful, please [star me on Github](https://github.com/fangbinwei/
 
 需要注意的是, 若配置自定义域名, 且启用HTTPS(`elan.aliyun.secure`), 需要在阿里云配置证书. 可以使用CDN, 然后直接在CDN配置界面申请免费证书. [具体配置参考官方文档](https://help.aliyun.com/document_detail/27118.html?spm=5176.11785003.domainDetail.14.11264a14IGTgko).
 
+> 如果配置了自定义域名, `elan.aliyun.region`将被忽略.
+
 ### `elan.uploadName`
 所上传的OSS对象, 在OSS中的命名
 
