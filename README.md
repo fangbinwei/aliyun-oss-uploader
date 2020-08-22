@@ -96,7 +96,10 @@ If you find it useful, please [star me on Github](https://github.com/fangbinwei/
 ### `elan.aliyun.bucket`
 ### `elan.aliyun.region`
   例如 `oss-cn-shanghai`, [具体可以查看这里](https://github.com/ali-sdk/ali-oss#data-regions).
+### `elan.aliyun.maxKeys`
+bucket树每个层级显示的对象数量, 超出则会进行分页.
 
+默认为100
 ### `elan.aliyun.secure`
 是否启用HTTPS, 若开启, 对象url将使用https协议.
 
@@ -202,9 +205,10 @@ crypto.createHash('md5')
 * [x] enhance 'bucketFolder'
 * [x] delete image when hover GFM(github flavored markdown)
 * [x] sidebar extension (e.g. show recent uploaded image)/ (should consider icon theme)
-* [x] preview image of bucket by webview (WIP)
+* [x] preview image of bucket by webview
+* [x] bucket treeView pagination
 * [ ] recently uploaded show in bucket treeView
-* [ ] bucket treeView pagination/ batch operation (WIP)
+* [ ] batch operation in treeView
 * [ ] confirmation before deleting image
 * [ ] inquire before upload to check folder
 * [ ] decoupling logic by tapable
