@@ -97,28 +97,25 @@ class TemplateStore {
         return outputFormat
       }
       case 'bucketFolder': {
-        const workspaceFolders = vscode.workspace.workspaceFolders
-
         const activeTextEditorFilename =
           vscode.window.activeTextEditor?.document.fileName
 
         let bucketFolder = this.raw.bucketFolder
         if (
           relativeToVsRootPathRe.test(this.raw.bucketFolder) &&
-          workspaceFolders &&
+          vscode.workspace.workspaceFolders &&
           activeTextEditorFilename
         ) {
-          const rootPath = workspaceFolders[0].uri.fsPath
           const activeTextEditorFolder = path.dirname(activeTextEditorFilename)
 
-          const relativePath = path.relative(rootPath, activeTextEditorFolder)
-          if (isSubDirectory(rootPath, activeTextEditorFolder)) {
-            this.set(
-              'relativeToVsRootPath',
-              path.sep === '\\' // windows
-                ? relativePath.split('\\').join('/')
-                : relativePath
-            )
+          // when 'includeWorkspaceFolder' is true, name of the workspaceFolder is prepended
+          // here we don't prepend workspaceFolder name
+          const relativePath = vscode.workspace.asRelativePath(
+            activeTextEditorFolder,
+            false
+          )
+          if (relativePath !== activeTextEditorFolder) {
+            this.set('relativeToVsRootPath', relativePath)
           }
         }
 
