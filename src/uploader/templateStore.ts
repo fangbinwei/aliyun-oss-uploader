@@ -17,7 +17,8 @@ const fileNameRe = getRe('fileName')
 const uploadNameRe = getRe('uploadName')
 const urlRe = getRe('url')
 const extRe = getRe('ext')
-const relativeToVsRootPathRe = getRe('relativeToVsRootPath')
+// const relativeToVsRootPathRe = getRe('relativeToVsRootPath')
+const relativeToVsRootPathRe = /\$\{relativeToVsRootPath(?::([^:}]*))?\}/gi
 const activeMdFilenameRe = getRe('activeMdFilename')
 const dateRe = getRe('date')
 const monthRe = getRe('month')
@@ -142,7 +143,18 @@ class TemplateStore {
         }
 
         bucketFolder = this.raw.bucketFolder
-          .replace(relativeToVsRootPathRe, this.get('relativeToVsRootPath'))
+          .replace(relativeToVsRootPathRe, (_, prefix?: string) => {
+            const relativePath = this.get('relativeToVsRootPath')
+            if (!prefix) return relativePath
+            prefix = prefix.trim()
+            const prefixOfRelativePath = relativePath.substring(
+              0,
+              prefix.length
+            )
+            return prefix === prefixOfRelativePath
+              ? relativePath.substring(prefix.length)
+              : relativePath
+          })
           .replace(activeMdFilenameRe, this.get('activeMdFilename'))
           .replace(yearRe, this.get('year'))
           .replace(monthRe, this.get('month'))
