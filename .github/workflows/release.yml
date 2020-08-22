@@ -30,7 +30,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-yarn-
 
-    - run: npm install yarn -g
+    - run: npm install yarn@1.22.4 -g
     - run: yarn install
     - run: yarn build
     - run: yarn vspack
