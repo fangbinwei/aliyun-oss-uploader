@@ -259,6 +259,7 @@ export class ShowMoreTreeItem extends OSSObjectTreeItem {
   nextMarker: string
   constructor(options: ShowMoreTreeItemOptions) {
     super({ label: 'Show More', parentFolder: options.parentFolder })
+    this.contextValue = CONTEXT_VALUE.PAGER
     this.nextMarker = options.nextMarker
     this.command = this.getCommand()
     this.iconPath = getThemedIconPath('ellipsis')
