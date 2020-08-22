@@ -4,6 +4,7 @@ import { TemplateStore } from './templateStore'
 import Logger from '@/utils/log'
 import { getActiveMd, getProgress } from '@/utils/index'
 import Uploader from './index'
+import { URL } from 'url'
 
 declare global {
   interface PromiseConstructor {
@@ -68,6 +69,7 @@ export async function uploadUris(
       })
 
       templateStore.set('url', putObjectResult.url)
+      templateStore.set('pathname', new URL(putObjectResult.url).pathname)
       clipboard.push(templateStore.transform('outputFormat'))
 
       return putObjectResult

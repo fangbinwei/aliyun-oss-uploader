@@ -1,6 +1,7 @@
 import vscode from 'vscode'
 import path from 'path'
-import { isSubDirectory, getHashDigest } from '@/utils/index'
+import { getHashDigest } from '@/utils/index'
+import { getDate, format, getYear } from 'date-fns'
 
 interface RawConfig {
   outputFormat: string
@@ -18,11 +19,20 @@ const urlRe = getRe('url')
 const extRe = getRe('ext')
 const relativeToVsRootPathRe = getRe('relativeToVsRootPath')
 const activeMdFilenameRe = getRe('activeMdFilename')
+const dateRe = getRe('date')
+const monthRe = getRe('month')
+const yearRe = getRe('year')
+const pathnameRe = getRe('pathname')
 // ${<hashType>:hash:<digestType>:<length>}
 const contentHashRe = /\$\{(?:([^:}]+):)?contentHash(?::([a-z]+\d*))?(?::(\d+))?\}/gi
 
 interface Store {
+  readonly year: string
+  readonly month: string
+  readonly date: string
+  // maybe should named to filename ....
   fileName: string
+  pathname: string
   activeMdFilename: string
   uploadName: string
   url: string
@@ -34,10 +44,21 @@ interface Store {
 
 class TemplateStore {
   private store: Store = {
+    get year(): string {
+      return getYear(new Date()).toString()
+    },
+    get month(): string {
+      return format(new Date(), 'MM')
+    },
+    get date(): string {
+      const d = getDate(new Date()).toString()
+      return d.length > 1 ? d : '0' + d
+    },
     fileName: '',
     activeMdFilename: '',
     uploadName: '',
     url: '',
+    pathname: '',
     ext: '',
     relativeToVsRootPath: '',
     contentHash: '',
@@ -92,6 +113,7 @@ class TemplateStore {
           .replace(fileNameRe, this.get('fileName'))
           .replace(uploadNameRe, this.get('uploadName'))
           .replace(urlRe, this.get('url'))
+          .replace(pathnameRe, this.get('pathname'))
           .replace(activeMdFilenameRe, this.get('activeMdFilename'))
 
         return outputFormat
@@ -122,6 +144,9 @@ class TemplateStore {
         bucketFolder = this.raw.bucketFolder
           .replace(relativeToVsRootPathRe, this.get('relativeToVsRootPath'))
           .replace(activeMdFilenameRe, this.get('activeMdFilename'))
+          .replace(yearRe, this.get('year'))
+          .replace(monthRe, this.get('month'))
+          .replace(dateRe, this.get('date'))
 
         // since relativeToVsRootPath may be empty string, normalize it
         bucketFolder =

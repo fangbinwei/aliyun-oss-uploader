@@ -247,12 +247,12 @@
         },
         "elan.outputFormat": {
           "type": "string",
-          "markdownDescription": "- `${fileName}`: Filename of uploaded file.\n- `${uploadName}`: Custom defined config. \n- `${url}`: After a file is uploaded successfully, the OSS sends a callback request to this URL. \n-`${activeMdFilename}`: Filename of markdown in active text editor.",
+          "markdownDescription": "- `${fileName}`: Filename of uploaded file.\n- `${uploadName}`: Custom defined config. \n-`${activeMdFilename}`: Filename of markdown in active text editor.\n- `${url}`: After a file is uploaded successfully, the OSS sends a callback request to this URL. \n- `${pathname}`: Pathname of `${url}`. e.g. `${url}` is `https://example.org/path/to/your/image.png`, `${pathname}` is `/path/to/your/image.png`",
           "default": "![${fileName}](${url})"
         },
         "elan.bucketFolder": {
           "type": "string",
-          "markdownDescription": "- `${relativeToVsRootPath}`: The path of the directory where the currently active file is located relative to the workspace root directory. \n-`${activeMdFilename}`: Filename of markdown in active text editor.",
+          "markdownDescription": "- `${relativeToVsRootPath}`: The path of the directory where the currently active file is located relative to the workspace root directory. \n- `${activeMdFilename}`: Filename of markdown in active text editor.\n- If today is 1993.2.4.\n- `${year}`: 1993\n- `${month}`: 02\n- `${date}`: 04",
           "default": ""
         }
       }
