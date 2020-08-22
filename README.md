@@ -122,7 +122,7 @@ bucket树每个层级显示的对象数量, 超出则会进行分页.
 - `${contentHash}`: 文件内容的hash值. 和webpack的`contentHash`类似, 也可以指定选择使用的位数.
 - `${activeMdFilename}`: 如果当前打开了markdown文件, 这个就指所打开md文件的文件名.
 
-`contentHash`的计算方式, `${<hashType>:hash:<digestType>:<length>}`, 默认`hashType`是`md5`, `digestType`为`hex`
+`contentHash`的计算方式, `${<hashType>:contentHash:<digestType>:<length>}`, 默认`hashType`是`md5`, `digestType`为`hex`
 
 ```js
 crypto.createHash('md5')
