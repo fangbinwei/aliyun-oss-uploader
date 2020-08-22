@@ -165,32 +165,32 @@
       "view/item/context": [
         {
           "command": "elan.bucketExplorer.deleteFromContext",
-          "when": "view == bucketExplorer && viewItem == object",
+          "when": "view == bucketExplorer && viewItem == elan:object",
           "group": "7_modification"
         },
         {
           "command": "elan.bucketExplorer.copyLink",
-          "when": "view == bucketExplorer && viewItem == object",
+          "when": "view == bucketExplorer && viewItem == elan:object",
           "group": "inline"
         },
         {
           "command": "elan.bucketExplorer.uploadFromContext",
-          "when": "view == bucketExplorer && viewItem == folder || view == bucketExplorer &&viewItem == bucket",
+          "when": "view == bucketExplorer && viewItem == elan:folder || view == bucketExplorer &&viewItem == elan:bucket",
           "group": "upload@1"
         },
         {
           "command": "elan.bucketExplorer.uploadFromClipboard",
-          "when": "view == bucketExplorer && viewItem == folder || view == bucketExplorer &&viewItem == bucket",
+          "when": "view == bucketExplorer && viewItem == elan:folder || view == bucketExplorer &&viewItem == elan:bucket",
           "group": "upload@1"
         },
         {
           "command": "elan.bucketExplorer.moveFromContext",
-          "when": "view == bucketExplorer && viewItem == object",
+          "when": "view == bucketExplorer && viewItem == elan:object",
           "group": "5_cutcopypaste"
         },
         {
           "command": "elan.bucketExplorer.copyFromContext",
-          "when": "view == bucketExplorer && viewItem == object",
+          "when": "view == bucketExplorer && viewItem == elan:object",
           "group": "5_cutcopypaste"
         }
       ]

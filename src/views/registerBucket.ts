@@ -8,6 +8,7 @@ import { copyFromBucketExplorerContext } from '@/commands/bucketExplorer/copyFro
 import { moveFromBucketExplorerContext } from '@/commands/bucketExplorer/moveFromContext'
 import { BucketExplorerProvider } from './bucket'
 import { CommandContext } from '@/constant'
+import { ShowMoreTreeItem } from '@/views/bucket'
 
 export function registerBucket(): vscode.Disposable[] {
   ext.bucketExplorer = new BucketExplorerProvider()
@@ -21,6 +22,12 @@ export function registerBucket(): vscode.Disposable[] {
     vscode.commands.registerCommand(
       uploadFromBucketExplorerContext.command,
       uploadFromBucketExplorerContext
+    ),
+    vscode.commands.registerCommand(
+      CommandContext.BUCKET_EXPLORER_SHOW_MORE_CHILDREN,
+      (node: ShowMoreTreeItem) => {
+        node.showMore()
+      }
     ),
     vscode.commands.registerCommand(
       CommandContext.BUCKET_EXPLORER_REFRESH_ROOT,

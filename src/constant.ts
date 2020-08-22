@@ -5,7 +5,8 @@ export enum CommandContext {
   BUCKET_EXPLORER_COPY_CONTEXT = 'elan.bucketExplorer.copyFromContext',
   BUCKET_EXPLORER_MOVE_CONTEXT = 'elan.bucketExplorer.moveFromContext',
   BUCKET_EXPLORER_REFRESH_ROOT = 'elan.bucketExplorer.refreshRoot',
-  BUCKET_EXPLORER_COPY_LINK = 'elan.bucketExplorer.copyLink'
+  BUCKET_EXPLORER_COPY_LINK = 'elan.bucketExplorer.copyLink',
+  BUCKET_EXPLORER_SHOW_MORE_CHILDREN = 'elan.bucketExplorer.showMoreChildren'
 }
 export const SUPPORT_EXT: ReadonlyArray<string> = [
   'png',
@@ -23,10 +24,11 @@ export const MARKDOWN_PATH_REG = /!\[.*?\]\((.+?)\)/g
 export const TIP_FAILED_INIT =
   'Failed to connect OSS. Is the configuration correct?'
 export const CONTEXT_VALUE = {
-  BUCKET: 'bucket',
-  OBJECT: 'object',
-  FOLDER: 'folder',
-  CONNECT_ERROR: 'connectError'
+  BUCKET: 'elan:bucket',
+  OBJECT: 'elan:object',
+  FOLDER: 'elan:folder',
+  CONNECT_ERROR: 'elan:connectError',
+  PAGER: 'elan:pager'
 }
 
 export const OSS_REGION = [

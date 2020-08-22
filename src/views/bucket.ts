@@ -3,8 +3,10 @@ import Uploader from '@/uploader/index'
 import { removeTrailingSlash } from '@/utils/index'
 import { CONTEXT_VALUE, TIP_FAILED_INIT, SUPPORT_EXT } from '@/constant'
 import { getThemedIconPath } from './iconPath'
+import { CommandContext } from '@/constant'
 import path from 'path'
 import Logger from '@/utils/log'
+import { ext } from '@/extensionVariables'
 type State = 'uninitialized' | 'initialized'
 
 export class BucketExplorerProvider
@@ -37,15 +39,15 @@ export class BucketExplorerProvider
     vscode.commands.executeCommand('setContext', 'elan.state', state)
   }
 
-  refresh(element?: OSSObjectTreeItem): void {
+  refresh(element?: OSSObjectTreeItem, reset = true): void {
+    // if reset is false, means show next page date(pagination)
+    if (element && reset) {
+      element.marker = ''
+    }
     this._onDidChangeTreeData.fire(element)
   }
-  getOSSObjectErrorTreeItem(): OSSObjectTreeItem {
-    return new OSSObjectTreeItem({
-      label: TIP_FAILED_INIT,
-      iconPath: getThemedIconPath('statusWarning'),
-      contextValue: CONTEXT_VALUE.CONNECT_ERROR
-    })
+  getErrorTreeItem(): OSSObjectTreeItem {
+    return new ErrorTreeItem()
   }
 
   getTreeItem(element: OSSObjectTreeItem): vscode.TreeItem {
@@ -55,7 +57,7 @@ export class BucketExplorerProvider
   getChildren(element?: OSSObjectTreeItem): Thenable<OSSObjectTreeItem[]> {
     if (!this.uploader) {
       if (this._state === 'uninitialized') return Promise.resolve([])
-      return Promise.resolve([this.getOSSObjectErrorTreeItem()])
+      return Promise.resolve([this.getErrorTreeItem()])
     }
     if (this.root && this.root.label !== this.uploader.configuration.bucket) {
       this.root = null
@@ -63,17 +65,24 @@ export class BucketExplorerProvider
       return Promise.resolve([])
     }
 
+    // element is 'folder', should add prefix to its label
     if (element) {
-      // element is 'folder', should add prefix to its label
       return Promise.resolve(
-        this.getObjects(element.prefix + element.label, element)
+        this.getObjects(
+          element.prefix + element.label,
+          element.marker,
+          element
+        ).then((children) => {
+          element.children = children
+          return children
+        })
       )
     }
     // root
     const bucket = this.uploader.configuration.bucket
     if (!bucket) {
       if (this._state === 'uninitialized') return Promise.resolve([])
-      return Promise.resolve([this.getOSSObjectErrorTreeItem()])
+      return Promise.resolve([this.getErrorTreeItem()])
     }
     this.root = new OSSObjectTreeItem({
       label: bucket,
@@ -83,17 +92,21 @@ export class BucketExplorerProvider
     })
     return Promise.resolve([this.root])
   }
-
+  // getObjects with certain prefix ('folder') and marker
   private async getObjects(
     prefix: string,
+    marker = '',
     parentFolder: OSSObjectTreeItem
   ): Promise<OSSObjectTreeItem[]> {
     try {
-      if (!this.uploader) return [this.getOSSObjectErrorTreeItem()]
+      if (!this.uploader) return [this.getErrorTreeItem()]
 
       prefix = prefix === this.uploader.configuration.bucket ? '' : prefix + '/'
 
-      const res = await this.uploader.list({ prefix })
+      const res = await this.uploader.list({
+        prefix,
+        marker
+      })
       // we should create an empty 'folder' sometimes
       // this 'empty object' is the 'parent folder' of these objects
       let emptyObjectIndex: null | number = null
@@ -108,8 +121,7 @@ export class BucketExplorerProvider
       const commonOptions = {
         prefix,
         parentFolder,
-        parentFolderIsObject: emptyObjectIndex !== null,
-        total: res.prefixes.length + res.objects.length
+        parentFolderIsObject: emptyObjectIndex !== null
       }
       let _objects = res.objects.map((p, index) => {
         const isImage = SUPPORT_EXT.includes(
@@ -136,7 +148,6 @@ export class BucketExplorerProvider
       if (emptyObjectIndex != null) _objects.splice(emptyObjectIndex, 1)
 
       if (this.uploader.configuration.onlyShowImages) {
-        //TODO: after realizing pagination, we can show all ext
         _objects = _objects.filter((o) => {
           return SUPPORT_EXT.includes(
             path.extname(o.label).substr(1).toLowerCase()
@@ -155,8 +166,25 @@ export class BucketExplorerProvider
           iconPath: vscode.ThemeIcon.Folder
         })
       })
+      const nodes = _prefixes.concat(_objects)
 
-      return _prefixes.concat(_objects)
+      // click 'Show More' button
+      if (marker) {
+        // remove 'hasMore' item
+        parentFolder.children.pop()
+        nodes.unshift(...parentFolder.children)
+      }
+
+      if (!res.isTruncated) return nodes
+      // if has nextPage
+      nodes.push(
+        new ShowMoreTreeItem({
+          parentFolder,
+          // since isTruncated is true, nextMarker must be string
+          nextMarker: res.nextMarker as string
+        })
+      )
+      return nodes
     } catch (err) {
       Logger.showErrorMessage(
         'Failed to list objects. See output channel for more details.'
@@ -166,7 +194,7 @@ export class BucketExplorerProvider
           ` Reason: ${err.message}` +
           ` If you set customDomain, is it match to the bucket? `
       )
-      return [this.getOSSObjectErrorTreeItem()]
+      return [this.getErrorTreeItem()]
     }
   }
 }
@@ -177,7 +205,6 @@ interface OSSObjectTreeItemOptions extends vscode.TreeItem {
   prefix?: string
   parentFolder?: OSSObjectTreeItem
   parentFolderIsObject?: boolean
-  total?: number
   hidden?: boolean
 }
 
@@ -186,12 +213,17 @@ export class OSSObjectTreeItem extends vscode.TreeItem {
   prefix: string
   hidden: boolean
   url: string
+  isFolder: boolean
   parentFolder: OSSObjectTreeItem | null
   parentFolderIsObject: boolean
-  total: number // sibling + itself
+  children: OSSObjectTreeItem[] = []
+  isTruncated = false
+  marker = ''
   constructor(options: OSSObjectTreeItemOptions) {
     super(options.label, options.collapsibleState)
-    this.id = options.id
+    // folder has children object/folder
+    this.isFolder = options.collapsibleState !== undefined
+    // this.id = options.id
     this.label = options.label
     this.description = options.description
     this.iconPath = options.iconPath
@@ -201,7 +233,6 @@ export class OSSObjectTreeItem extends vscode.TreeItem {
     this.url = options.url || ''
     this.parentFolder = options.parentFolder || null
     this.parentFolderIsObject = !!options.parentFolderIsObject
-    this.total = options.total || 0
     this.resourceUri = options.resourceUri
     this.command = options.command
   }
@@ -209,4 +240,39 @@ export class OSSObjectTreeItem extends vscode.TreeItem {
     return `${this.label}`
   }
 }
-// TODO: necessary? class ShowMoreTreeItem
+
+class ErrorTreeItem extends OSSObjectTreeItem {
+  constructor() {
+    super({
+      label: TIP_FAILED_INIT,
+      iconPath: getThemedIconPath('statusWarning'),
+      contextValue: CONTEXT_VALUE.CONNECT_ERROR
+    })
+  }
+}
+interface ShowMoreTreeItemOptions {
+  parentFolder: OSSObjectTreeItem
+  nextMarker: string
+}
+
+export class ShowMoreTreeItem extends OSSObjectTreeItem {
+  nextMarker: string
+  constructor(options: ShowMoreTreeItemOptions) {
+    super({ label: 'Show More', parentFolder: options.parentFolder })
+    this.nextMarker = options.nextMarker
+    this.command = this.getCommand()
+    this.iconPath = getThemedIconPath('icon-ellipsis')
+  }
+  getCommand(): vscode.Command {
+    return {
+      command: CommandContext.BUCKET_EXPLORER_SHOW_MORE_CHILDREN,
+      title: 'Show More',
+      arguments: [this]
+    }
+  }
+  showMore(): void {
+    if (!this.parentFolder) return
+    this.parentFolder.marker = this.nextMarker
+    ext.bucketExplorer.refresh(this.parentFolder, false)
+  }
+}
