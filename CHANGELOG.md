@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.6.0...v1.7.0) (2020-08-22)
+
+
+### Features
+
+* **templateSubstitute:** support 'relativeToVsRootPath' trim prefix ([2ccef64](https://github.com/fangbinwei/aliyun-oss-uploader/commit/2ccef64a92e15991723d448fcdd594b209cb1567))
+
 ## [1.6.0](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.5.1...v1.6.0) (2020-08-22)
 
 
