@@ -23,7 +23,7 @@ const dateRe = getRe('date')
 const monthRe = getRe('month')
 const yearRe = getRe('year')
 const pathnameRe = getRe('pathname')
-// ${<hashType>:hash:<digestType>:<length>}
+// ${<hashType>:contentHash:<digestType>:<length>}
 const contentHashRe = /\$\{(?:([^:}]+):)?contentHash(?::([a-z]+\d*))?(?::(\d+))?\}/gi
 
 interface Store {
