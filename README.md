@@ -155,7 +155,7 @@ crypto.createHash('md5')
 - `${year}`: 当前年
 - `${month}`: 当前月, 会补零, 例如 '02'
 - `${date}`: 当前日, 会补零, 例如 '04'
-- `${relativeToVsRootPath}`: 这个配置比较抽象, 假如我们上传的时候, vscode编辑器有打开一个文件, 那这个配置就指代所打开文件所在的路径
+- `${relativeToVsRootPath}`: 这个配置比较抽象, 假如我们上传的时候, vscode编辑器有打开一个文件, 那这个配置就指代所打开文件所在的路径, 另外支持`${relativeToVsRootPath:trimPrefixPath}`的形式来删除前缀路径
 - `${activeMdFilename}`: 如果打开了一个markdown文件, 这个配置就指md文件的文件名.
 
 举个例子, 设置 `elan.bucketFolder` 为 `blog/${relativeToVsRootPath}/`, vscode的explorer如下
@@ -181,6 +181,7 @@ crypto.createHash('md5')
 | example.js       |  blog/FrontEnd/Engineering/webpack/ | blog/FrontEnd/Engineering/webpack/ |
 | no opened file       |  blog/ | blog/ |
 
+假如你的文档全都放在`doc`目录下, 你又希望`${relativeToVsRootPath}`输出路径不包含前缀`doc`, 可以使用`${relativeToVsRootPath:doc}`来去除前缀
 
 ## Create Bucket
 
