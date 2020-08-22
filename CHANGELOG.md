@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.5.1...v1.6.0) (2020-08-22)
+
+
+### Features
+
+* **bucketExplorer:** support pagination ([134da5e](https://github.com/fangbinwei/aliyun-oss-uploader/commit/134da5e2cae74bf0462d98272e6e4f53a506658f))
+* **templateSubstitute:** support 'year','month','date', 'pathname' ([f2bb312](https://github.com/fangbinwei/aliyun-oss-uploader/commit/f2bb3121728db1765687f5e8efc529cbc14012b7)), closes [#4](https://github.com/fangbinwei/aliyun-oss-uploader/issues/4)
+
+
+### Bug Fixes
+
+* **templateSubstitute:** fix `relativeToVsRootPath` bug ([28a8504](https://github.com/fangbinwei/aliyun-oss-uploader/commit/28a850435eb01fed0a83f097fea6766378958e94))
+
 ### [1.5.1](https://github.com/fangbinwei/aliyun-oss-uploader/compare/v1.5.0...v1.5.1) (2020-07-26)
 
 
