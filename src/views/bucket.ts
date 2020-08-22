@@ -261,7 +261,7 @@ export class ShowMoreTreeItem extends OSSObjectTreeItem {
     super({ label: 'Show More', parentFolder: options.parentFolder })
     this.nextMarker = options.nextMarker
     this.command = this.getCommand()
-    this.iconPath = getThemedIconPath('icon-ellipsis')
+    this.iconPath = getThemedIconPath('ellipsis')
   }
   getCommand(): vscode.Command {
     return {
