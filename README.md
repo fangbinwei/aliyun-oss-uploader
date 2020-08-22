@@ -134,8 +134,9 @@ crypto.createHash('md5')
 
 - `${fileName}`: 文件名
 - `${uploadName}`: 在oss中所保存的文件名, 是在`elan.uploadName`中配置的.
-- `${url}`: 文件的url.
 - `${activeMdFilename}`: 如果上传的时候, 打开了md文件, 这个就是md文件名.
+- `${url}`: 文件的url.
+- `${pathname}`: 文件url的pathname, 若 `${url}`为 `https://example.org/path/to/your/image.png`, `${pathname}` 则为 `/path/to/your/image.png`.
 
 ### `elan.bucketFolder`
 > 如果你觉得这个配置有点复杂, 又想将文件上传到指定的文件夹, 建议在bucket树中上传
@@ -148,6 +149,9 @@ crypto.createHash('md5')
 
 ![oss browser](https://fangbinwei-blog-image.oss-cn-shanghai.aliyuncs.com/github/aliyun-oss-uploader/2020-05-31-19-02-13_55660788.png)
 
+- `${year}`: 当前年
+- `${month}`: 当前月, 会补零, 例如 '02'
+- `${date}`: 当前日, 会补零, 例如 '04'
 - `${relativeToVsRootPath}`: 这个配置比较抽象, 假如我们上传的时候, vscode编辑器有打开一个文件, 那这个配置就指代所打开文件所在的路径
 - `${activeMdFilename}`: 如果打开了一个markdown文件, 这个配置就指md文件的文件名.
 
